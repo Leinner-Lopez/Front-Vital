@@ -1,0 +1,93 @@
+<main class="dashboard">
+    <section class="dashboard__main">
+        <header class="main__header">
+            <h1 class="header__title">Hola, Leinner López</h1>
+            <p class="header__date">{{fechaFormateada}}</p>
+        </header>
+
+        <section class="main__summary">
+            <article class="summary__card card--black">
+                <p>Hoy tienes</p>
+                <strong>3 citas</strong>
+                <button class="card__button" aria-label="Añadir cita">
+                    <svg width="22" height="22">
+                        <use href="/image/sprite.svg#calendar-add"></use>
+                    </svg>
+                </button>
+            </article>
+            <article class="summary__card card--white">
+                <h2>Tu próxima cita:</h2>
+                <p>No hay citas pendientes</p>
+            </article>
+        </section>
+
+        <section class="main__agenda">
+            <header class="agenda__header">
+                <h2>Citas de hoy</h2>
+                <p>{{fechaFormateada}}</p>
+                <div class="header__filter">
+                    <button class="filter__btn">Pendientes</button>
+                    <button class="filter__btn">Completadas</button>
+                </div>
+            </header>
+
+            <ul class="agenda__list">
+                <li class="list__item">
+                    <div class="item__info">
+                        <p>3:00 PM, David Sandoval Marín</p>
+                    </div>
+                    <div class="item__actions">
+                        <button class="actions__btn btn--black">
+                            <svg width="15" height="15" aria-hidden="true">
+                                <use href="/image/sprite.svg#check"></use>
+                            </svg>
+                            Marcar completada
+                        </button>
+                        <button class="actions__btn btn--grey">
+                            <svg width="15" height="15" aria-hidden="true">
+                                <use href="/image/sprite.svg#edit"></use>
+                            </svg>
+                            Editar
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </section>
+    <aside class="dashboard__aside">
+        <header class="aside__header">
+            <div class="header__container">
+                <h2>Solicitudes de cita</h2>
+                <p>Puedes aceptar o rechazar cada solicitud</p>
+            </div>
+            <button class="header__btn">
+                <svg width="15" height="15" aria-hidden="true">
+                    <use href="/image/sprite.svg#refresh"></use>
+                </svg>
+                Refrescar
+            </button>
+        </header>
+        <ul class="aside__list">
+            <li class="list__date">
+                <h3>Ashly Giselle Barbosa Lopez</h3>
+                <div class="date__details">
+                    <p>9 de Septiembre, 9:00AM</p>
+                    <span>El próximo martes</span>
+                </div>
+                <div class="date__buttons">
+                    <button class="actions__btn btn--black">
+                        <svg width="15" height="15" aria-hidden="true">
+                            <use href="/image/sprite.svg#check"></use>
+                        </svg>
+                        Aceptar cita
+                    </button>
+                    <button class="actions__btn btn--grey">
+                        <svg width="15" height="15" aria-hidden="true">
+                            <use href="/image/sprite.svg#close"></use>
+                        </svg>
+                        Rechazar</button>
+                </div>
+            </li>
+        </ul>
+    </aside>
+</main>

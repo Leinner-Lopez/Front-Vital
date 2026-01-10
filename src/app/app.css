@@ -1,0 +1,8 @@
+.app-container {
+    display: flex;
+}
+
+.content-area {
+    flex-grow: 1;
+    height: 100vh;
+}
