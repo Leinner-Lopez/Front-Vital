@@ -1,3 +1,12 @@
+:root {
+    --color-background: rgb(250, 250, 250);
+    --color-font: rgb(110, 110, 110);
+    --color-notifications: rgb(230,230,230);
+    --color-background-buttons: rgb(0,0,0);
+    --color-border: rgb(200,200,200);
+    --color-main: rgb(0,0,0);
+}
+
 * {
     font-family: 'DMSans';
     box-sizing: border-box;
@@ -6,7 +15,7 @@
 }
 
 body {
-    background-color: rgb(250, 250, 250);
+    background-color: var(--color-background);
 }
 
 @font-face {
@@ -81,5 +90,5 @@ body {
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-    animation-duration: .6s;
+    animation-duration: .4s;
 }

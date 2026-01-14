@@ -38,23 +38,20 @@
 
     <section class="navbar__group">
         <h4 class="group__title">Opciones</h4>
-        <ul class="group__list">
-            <li class="list__item">
-                <a href="#" class="item__link">
-                    <svg width="25" height="25">
-                        <use href="/image/sprite.svg#calendar-add"></use>
-                    </svg>
-                    Agendar Cita</a>
-            </li>
-            <li class="list__item">
-                <a href="#" class="item__link">
-                    <svg width="25" height="25">
-                        <use href="/image/sprite.svg#calendar-check"></use>
-                    </svg>
-                    Disponibilidad
-                </a>
-            </li>
-        </ul>
+        <div class="group__list">
+            <button class="item__link" (click)="dispararApertura()">
+                <svg width="25" height="25">
+                    <use href="/image/sprite.svg#calendar-add"></use>
+                </svg>
+                Agendar Cita
+            </button>
+            <app-agendar-cita [(isOpen)] ="modalEstado"/>
+            <button class="item__link">
+                <svg width="25" height="25">
+                    <use href="/image/sprite.svg#calendar-check"></use>
+                </svg>
+                Disponibilidad
+            </button>
+        </div>
     </section>
-
 </nav>

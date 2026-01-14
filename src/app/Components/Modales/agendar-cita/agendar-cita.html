@@ -1,0 +1,23 @@
+@if (isOpen()) {
+<dialog open class="modal">
+    <button class="modal__close" (click)="isOpen.set(false)">
+        <svg width="25" height="25" aria-hidden="true">
+            <use href="/image/sprite.svg#close"></use>
+        </svg>
+    </button>
+    <h2>Agendar Cita</h2>
+    <div class="modal__content">
+        <mat-card class="content__calendar-card">
+            <mat-calendar>
+            </mat-calendar>
+        </mat-card>
+        <div class="content__horas-container">
+            <h3>Horas para el 13 de enero</h3>
+            <div class="horas-container__horas">
+                <button class="horas__button"> 8:00 PM</button>
+                <button class="horas__button"> 9:00 PM</button>
+            </div>
+        </div>
+    </div>
+</dialog>
+}

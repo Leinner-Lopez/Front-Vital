@@ -18,7 +18,7 @@
 }
 
 .header__date {
-    color: rgb(110, 110, 110);
+    color: var(--color-font);
 }
 
 .main__summary {
@@ -28,9 +28,9 @@
 }
 
 .summary__card {
-    border: 1px solid rgb(200, 200, 200);
+    border: 1px solid var(--color-border);
     border-radius: 30px;
-    padding: 25px;
+    padding: 30px;
 }
 
 .card--black {
@@ -41,7 +41,7 @@
 }
 
 .card--black p {
-    color: rgb(210, 210, 210);
+    color: var(--color-notifications);
 }
 
 .card--black strong {
@@ -56,7 +56,7 @@
     border-radius: 50%;
     padding: 10px;
     bottom: 10px;
-    background-color: #fff;
+    background-color: var(--color-background);
     display: flex;
     cursor: pointer;
     transition: scale .4s;
@@ -86,7 +86,7 @@
 
 .main__agenda {
     padding: 10px;
-    border: 1px solid rgb(200, 200, 200);
+    border: 1px solid var(--color-border);
     border-radius: 30px;
     display: flex;
     flex-direction: column;
@@ -211,14 +211,14 @@
 
 .aside__list {
     padding: 10px;
-    border: 1px solid rgb(200, 200, 200);
+    border: 1px solid var(--color-border);
     border-radius: 20px;
     flex-grow: 1;
     list-style: none;
 }
 
 .list__date {
-    border: 1px solid rgb(200, 200, 200);
+    border: 1px solid var(--color-border);
     border-radius: 15px;
     padding: 15px;
     display: flex;
@@ -229,7 +229,7 @@
 .date__details {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(230, 230, 230);
+    background-color: var(--color-notifications);
     padding: 5px 10px;
     border-radius: 10px;
 }
