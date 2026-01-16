@@ -1,6 +1,6 @@
 import { Component, model } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
-import { AgendarCita } from '../Modales/agendar-cita/agendar-cita';
+import { AgendarCita } from '../../Modales/agendar-cita/agendar-cita';
 
 @Component({
   selector: 'app-sidebar-component',

@@ -32,6 +32,11 @@
     position: absolute;
     right: 1.4rem;
     display: flex;
+    transition: scale .4s
+}
+
+.modal__close:hover{
+    scale: 1.15
 }
 
 .modal__content {
@@ -50,7 +55,8 @@ h2 {
     border-radius: 12px;
     overflow: hidden;
 }
-.content__horas-container{
+
+.content__horas-container {
     border: 1px solid var(--color-border);
     padding: 10px;
     border-radius: 12px;
@@ -58,27 +64,40 @@ h2 {
     flex-direction: column;
     gap: 15px;
 }
-h3{
+
+h3 {
     font-weight: 300;
 }
-.horas-container__horas{
+
+h3 > strong{
+    font-weight: 500;
+}
+
+.horas-container__horas {
     display: flex;
     flex-direction: column;
     gap: 15px;
     overflow-y: auto;
     max-height: 380px;
 }
-.horas__button{
+
+.horas__button {
     border: none;
     background-color: var(--color-notifications);
-    font-size: 1rem;
+    font-size: 1.15rem;
     padding: 10px;
-    border-radius: 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: scale 0.4s;
+}
+
+.horas__button:hover {
+    scale: 0.92;
 }
 
 @starting-style {
     .modal {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9);
+        transform: translate(-50%, -50%) scale(0.8);
     }
 }

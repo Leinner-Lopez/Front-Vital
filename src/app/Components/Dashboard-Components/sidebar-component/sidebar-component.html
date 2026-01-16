@@ -2,7 +2,7 @@
 
     <section class="narbar__group">
         <header class="group__user">
-            <svg width="25" height="25" aria-hidden="true">
+            <svg width="30" height="30" aria-hidden="true">
                 <use href="/image/sprite.svg#account"></use>
             </svg>
             <h3>Leinner Lopez</h3>
@@ -10,7 +10,7 @@
 
         <ul class="group__list">
             <li class="list__item">
-                <a routerLink="inicio" class="item__link" routerLinkActive="router-active">
+                <a routerLink="/inicio" class="item__link" routerLinkActive="router-active" [routerLinkActiveOptions]="{exact: true}">
                     <svg width="25" height="25" aria-hidden="true">
                         <use href="/image/sprite.svg#home"></use>
                     </svg>
@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="list__item">
-                <a routerLink="pacientes" class="item__link" routerLinkActive="router-active">
+                <a routerLink="/inicio/pacientes" class="item__link" routerLinkActive="router-active">
                     <svg width="25" height="25" aria-hidden="true">
                         <use href="/image/sprite.svg#users"></use>
                     </svg>
@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li class="list__item">
-                <a routerLink="citas" class="item__link" routerLinkActive="router-active">
+                <a routerLink="/inicio/citas" class="item__link" routerLinkActive="router-active">
                     <svg width="25" height="25" aria-hidden="true">
                         <use href="/image/sprite.svg#clock"></use>
                     </svg>

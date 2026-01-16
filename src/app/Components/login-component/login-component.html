@@ -1,0 +1,25 @@
+<div class="login__container">
+    <main class="login">
+        <div class="login__icon-container">
+            <svg width="75" height="75">
+                <use href="/image/sprite.svg#user"></use>
+            </svg>
+        </div>
+        <form (ngSubmit)="onSubmit()" novalidate class="login__form">
+            <div class="form__input-container">
+                <svg width="40" height="40">
+                    <use href="/image/sprite.svg#id-card"></use>
+                </svg>
+                <input type="text" id="numeroDocumento" placeholder="Número de Documento" name="username" required>
+            </div>
+            <div class="form__input-container">
+                <svg width="40" height="40">
+                    <use href="/image/sprite.svg#lock"></use>
+                </svg>
+                <input type="password" id="Contraseña" placeholder="Contraseña" name="password" required>
+            </div>
+            <input type="submit" value="Login" class="form__button">
+        </form>
+        <p>¿No tienes una cuenta? <a th:href="@{/Registro}">Regístrate</a></p>
+    </main>
+</div>
