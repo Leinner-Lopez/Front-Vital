@@ -10,9 +10,10 @@
     height: 100vh;
 }
 
-h3 {
-    font-weight: 500;
-    font-size: inherit;
+.navbar__group{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .group__user {
@@ -22,6 +23,16 @@ h3 {
     gap: 8px;
     align-items: center;
     font-style: normal;
+    color: var(--color-main);
+}
+
+.opcion__group{
+    gap: 0;
+}
+
+h3 {
+    font-weight: 500;
+    font-size: 1.3rem;
 }
 
 .group__list {
@@ -57,8 +68,7 @@ h3 {
 }
 
 .item__link:is(:hover, :active), .router-active{
-    color: #fff;
-    background-color: rgba(20, 20, 20);
-    box-shadow: 1px 5px 10px #222;
+    color: var(--color-main);
+    background-color: rgba(210, 210, 210, .6);
     font-weight: bold;
 }
