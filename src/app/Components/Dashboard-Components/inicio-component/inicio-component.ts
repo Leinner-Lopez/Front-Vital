@@ -1,22 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { AgendarCita } from "../../Modales/agendar-cita/agendar-cita";
 
 
 @Component({
   selector: 'app-inicio-component',
-  imports: [],
+  imports: [AgendarCita],
   templateUrl: './inicio-component.html',
   styleUrl: './inicio-component.css',
 })
 export class InicioComponent {
+
+  modalEstado = signal(false);
+
   díasSemana: string[] = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-  nombreUser:string = "Leinner Lopez";
+  nombreUser: string = "Leinner Lopez";
   fechaFormateada = this.getFechaFormateada();
 
+  dispararApertura() {
+    this.modalEstado.set(true);
+  }
+
   getFechaFormateada(): string {
-    const fecha:Date = new Date();
-    const diaSemana:string = this.díasSemana[fecha.getDay()];
-    const dia:number = fecha.getDate();
-    const mes:string = fecha.toLocaleDateString('es-ES', {month:'long'});
+    const fecha: Date = new Date();
+    const diaSemana: string = this.díasSemana[fecha.getDay()];
+    const dia: number = fecha.getDate();
+    const mes: string = fecha.toLocaleDateString('es-ES', { month: 'long' });
     return `${diaSemana}, ${dia} de ${mes}`;
   }
 

@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { InicioComponent } from './Components/Dashboard-Components/inicio-component/inicio-component';
 import { PacientesComponent } from './Components/Dashboard-Components/pacientes-component/pacientes-component';
 import { CitasComponent } from './Components/Dashboard-Components/citas-component/citas-component';
-import { AgendarCita } from './Components/Modales/agendar-cita/agendar-cita';
 import { LoginComponent } from './Components/login-component/login-component';
 import { DashboardLayoutComponent } from './Components/dashboard-layout-component/dashboard-layout-component';
 
