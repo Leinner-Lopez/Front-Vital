@@ -10,7 +10,7 @@
     height: 100vh;
 }
 
-.navbar__group{
+.navbar__group {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -26,7 +26,7 @@
     color: var(--color-main);
 }
 
-.opcion__group{
+.opcion__group {
     gap: 0;
 }
 
@@ -52,7 +52,7 @@ h3 {
 .item__link {
     background-color: inherit;
     width: 100%;
-    border:none;
+    border: none;
     font-size: inherit;
     text-decoration: none;
     color: inherit;
@@ -67,8 +67,62 @@ h3 {
     cursor: pointer;
 }
 
-.item__link:is(:hover, :active), .router-active{
+.item__link:is(:hover, :active),
+.router-active {
     color: var(--color-main);
     background-color: rgba(210, 210, 210, .6);
     font-weight: bold;
+}
+
+@media (max-width:700px) {
+    .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: auto;
+        width: 100%;
+        padding: 10px 0 15px 0;
+        gap: 0;
+        background-color: var(--color-notifications);
+    }
+
+    /* Hacemos que los section no bloqueen el flujo */
+    .navbar__group {
+        flex-direction: row;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .group__title,
+    .group__user {
+        display: none;
+    }
+
+    .group__list {
+        flex-direction: row;
+        width: 100%;
+        max-width: none;
+        justify-content: space-around;
+        gap: 0;
+    }
+
+    .item__link {
+        flex-direction: column;
+        gap: 2px;
+        padding: 5px;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        flex: 1;
+    }
+
+    .item__link:is(:hover, :active),
+    .router-active {
+        font-weight: 400;
+    }
+
+    .item__link svg {
+        width: 25px;
+        height: 25px;
+    }
 }

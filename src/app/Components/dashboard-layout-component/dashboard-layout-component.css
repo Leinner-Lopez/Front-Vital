@@ -1,8 +1,21 @@
-.app-container {
+.main-container {
     display: flex;
+    height: 100vh;
 }
 
-.content-area {
+.content {
     flex-grow: 1;
-    height: 100vh;
+    overflow-y: auto;
+}
+
+@media (max-width:700px) {
+    .main-container{
+        flex-direction: column;
+    }
+
+    .sidebard{
+        width: 100%;
+        order: 2;
+        height: auto;
+    }
 }
