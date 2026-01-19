@@ -253,4 +253,9 @@
         flex-direction: column;
         gap: 20px;
     }
+
+    .main__summary{
+        display: flex;
+        flex-direction: column;
+    }
 }
