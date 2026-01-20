@@ -53,6 +53,8 @@ h3 {
     background-color: inherit;
     width: 100%;
     border: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
     font-size: inherit;
     text-decoration: none;
     color: inherit;
@@ -114,11 +116,13 @@ h3 {
         font-size: .9rem;
         border-radius: 8px;
         flex: 1;
+        transition: scale .4s;
     }
 
     .item__link:is(:hover, :active),
     .router-active {
         font-weight: 400;
+        scale: 0.9;
     }
 
     .item__link svg {
