@@ -1,14 +1,14 @@
 <main class="dashboard">
     <section class="dashboard__main">
         <header class="main__header">
-            <h1 class="header__title">Hola, Leinner López</h1>
+            <h1 class="header__title">Hola, {{nombreAdministrador()}}</h1>
             <p class="header__date">{{fechaFormateada}}</p>
         </header>
 
         <section class="main__summary">
             <article class="summary__card card--black">
                 <p>Hoy tienes</p>
-                <strong>3 citas</strong>
+                <strong>{{numeroDocumento()}} citas</strong>
                 <button class="card__button" aria-label="Añadir cita" (click)="dispararApertura()">
                     <svg width="22" height="22">
                         <use href="/image/sprite.svg#calendar-add"></use>

@@ -22,6 +22,7 @@ export class AuthService {
   userId = signal<number | null>(null);
   isAuthenticated = signal<boolean>(false);
 
+  /** Inicializa el servicio verificando el token guardado en sessionStorage y establece el estado de autenticación. */
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
       const savedToken = sessionStorage.getItem('token');
@@ -38,6 +39,7 @@ export class AuthService {
     }
   }
 
+  /** Realiza el login enviando las credenciales al servidor, guarda el token y decodifica la información del usuario. */
   login(credenciales: LoginRequest) {
     return this.httpCLient.post<{ token: string }>(`${this.apiUrl}/login`, credenciales).pipe(
       tap(respuesta => {
@@ -55,6 +57,7 @@ export class AuthService {
     )
   }
 
+  /** Cierra la sesión eliminando el token, restableciendo el estado y redirigiendo al login. */
   logout() {
     if (isPlatformBrowser(this.platformId)) {
       sessionStorage.removeItem('token');
@@ -68,6 +71,7 @@ export class AuthService {
     }
   }
 
+  /** Verifica si el token ha expirado comparando la fecha de expiración con la actual. */
   isTokenExpired(Token: string | null): boolean {
     if (!Token) return true;
 
@@ -79,6 +83,7 @@ export class AuthService {
     }
   }
 
+  /** Decodifica el token JWT y devuelve el payload o null si falla. */
   private decodeToken(Token: string | null) :MyJwtPayload | null{
     if (!Token) return null;
     try {
@@ -88,14 +93,17 @@ export class AuthService {
     }
   }
 
+  /** Devuelve el token de autenticación actual. */
   getToken() {
     return this.token();
   }
 
+  /** Devuelve el rol del usuario autenticado. */
   getUserRole() {
     return this.userRole();
   }
   
+  /** Devuelve el ID del usuario autenticado. */
   getUserId() {
     return this.userId();
   }
