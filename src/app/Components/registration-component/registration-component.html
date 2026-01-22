@@ -1,0 +1,296 @@
+<div class="form__container">
+    <main class="form">
+        <h1>Formulario de Registro</h1>
+        <div th:if="${error}" th:text="${error}" style="color: #f00; font-size: 1.3em;"></div>
+        <form th:object="${paciente}" th:action="${acción}" method="post" class="form__form">
+            <fieldset class="form__info-group">
+                <legend class="info-group__description">Información del Usuario</legend>
+                <div class="info-group__input-container">
+                    <div class="input-container">
+                        <label>Nombre(s)<input type="text" th:field="*{nombres}" placeholder="Andres"
+                                required /></label>
+                    </div>
+                    <div class="input-container">
+                        <label>Apellido(s)<input type="text" th:field="*{apellidos}" placeholder="Torres"
+                                required /></label>
+                    </div>
+                    <div class="input-container">
+                        <label for="Tipos Documento">Tipo de Documento</label>
+                        <select id="Tipos Documento" th:field="*{tipoDocumento}" required>
+                            <option value="RC">RC</option>
+                            <option value="TI">TI</option>
+                            <option value="CC">CC</option>
+                            <option value="CE">CE</option>
+                            <option value="PAS">PAS</option>
+                            <option value="PEP">PEP</option>
+                            <option value="PPN">PPN</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <label>Numero de Documento<input type="text" th:field="*{numeroDocumento}" minlength="8"
+                                required /></label>
+                    </div>
+                    <div class="input-container">
+                        <datalist id="Barrios">
+                            <option value="15 de mayo"></option>
+                            <option value="Aires del Quininí"></option>
+                            <option value="Antonio Nariño" selected></option>
+                            <option value="Akropolis"></option>
+                            <option value="Antiguo Balmoral"></option>
+                            <option value="Altos del Prado"></option>
+                            <option value="Balmoral"></option>
+                            <option value="Bella Vista I Sector"></option>
+                            <option value="Bella Vista II Sector"></option>
+                            <option value="Bonet"></option>
+                            <option value="Bonanza"></option>
+                            <option value="Bosque Bonnet"></option>
+                            <option value="Brisas del Quininí"></option>
+                            <option value="Bosques del Márquez"></option>
+                            <option value="Bosques del Oriente Etapas I y II"></option>
+                            <option value="Caminos de Llano Largo (San Francisco)"></option>
+                            <option value="Camino Real I Etapa"></option>
+                            <option value="Camino Real II y III Etapa"></option>
+                            <option value="Callejón de Bonet"></option>
+                            <option value="Carlos Lleras"></option>
+                            <option value="Cedritos"></option>
+                            <option value="Centro"></option>
+                            <option value="Ciudad Eben Ezer"></option>
+                            <option value="Ciudad Jardín (La Venta)"></option>
+                            <option value="Ciudalcampo"></option>
+                            <option value="Contigo, Con todo"></option>
+                            <option value="Ciudadela Campestre Villa Natalia"></option>
+                            <option value="Ciudadela Campestre Villa Natalia II"></option>
+                            <option value="Ciudadela Cootransfusa"></option>
+                            <option value="Ciudadela Comfenalco"></option>
+                            <option value="Coburgo"></option>
+                            <option value="Cucharal Urbano"></option>
+                            <option value="El Comboy"></option>
+                            <option value="Conjunto Cerrado San Martín de Los Olivos"></option>
+                            <option value="Conjunto Residencial Asoveinte"></option>
+                            <option value="Conjunto Residencial Balcones de San José"></option>
+                            <option value="Conjunto Residencial Villa Rosita"></option>
+                            <option value="Diagonal 17"></option>
+                            <option value="Eben Ezer"></option>
+                            <option value="El Caney"></option>
+                            <option value="El Caribe"></option>
+                            <option value="El Edén"></option>
+                            <option value="El Encanto"></option>
+                            <option value="El Lucero"></option>
+                            <option value="El Manantial"></option>
+                            <option value="El Mirador"></option>
+                            <option value="El Naranjal"></option>
+                            <option value="El Oasis"></option>
+                            <option value="El Progreso"></option>
+                            <option value="El Porvenir Asbembapor"></option>
+                            <option value="El Portal de San José"></option>
+                            <option value="El Rosal"></option>
+                            <option value="El Tejar"></option>
+                            <option value="El Vergel"></option>
+                            <option value="El Recreo"></option>
+                            <option value="Emilio Sierra"></option>
+                            <option value="Fontanar"></option>
+                            <option value="Fusacatán"></option>
+                            <option value="Florida Blanca"></option>
+                            <option value="Gaitán I"></option>
+                            <option value="Gaitán II"></option>
+                            <option value="Gaitán III"></option>
+                            <option value="Gran Colombia"></option>
+                            <option value="Independencia"></option>
+                            <option value="José Antonio Galán"></option>
+                            <option value="Jaime Pardo Leal"></option>
+                            <option value="La Alejandra"></option>
+                            <option value="La Cabaña"></option>
+                            <option value="La Esmeralda I Etapa"></option>
+                            <option value="La Esmeralda II Etapa"></option>
+                            <option value="La Esperanza"></option>
+                            <option value="La Florida"></option>
+                            <option value="La Glorieta"></option>
+                            <option value="La Gran Colombia"></option>
+                            <option value="La Independencia"></option>
+                            <option value="La Nueva Esperanza"></option>
+                            <option value="La Palma"></option>
+                            <option value="La Palma Etapa I"></option>
+                            <option value="La Palma Etapa II"></option>
+                            <option value="La Palma Etapa III"></option>
+                            <option value="La Pampa"></option>
+                            <option value="La Primavera"></option>
+                            <option value="La Venta"></option>
+                            <option value="La Victoria"></option>
+                            <option value="La Sultana"></option>
+                            <option value="Las Margaritas"></option>
+                            <option value="Las Delicias"></option>
+                            <option value="Las Américas"></option>
+                            <option value="La Marsella"></option>
+                            <option value="La Macarena"></option>
+                            <option value="Leidy Di"></option>
+                            <option value="Llano Grande"></option>
+                            <option value="Llano Largo"></option>
+                            <option value="Llano Largo III Sector"></option>
+                            <option value="Llano Verde"></option>
+                            <option value="Los Andes"></option>
+                            <option value="Los Fundadores"></option>
+                            <option value="Los Girasoles"></option>
+                            <option value="Los Guaduales"></option>
+                            <option value="Los Robles"></option>
+                            <option value="Las Delicias"></option>
+                            <option value="Los Sauces Bajo"></option>
+                            <option value="Los Cámbulos"></option>
+                            <option value="Los Comuneros"></option>
+                            <option value="Lusitania"></option>
+                            <option value="Luxemburgo"></option>
+                            <option value="Maíz Amarillo"></option>
+                            <option value="Mandalay"></option>
+                            <option value="Manila"></option>
+                            <option value="Manila sector Camino al Cuja"></option>
+                            <option value="Marsella"></option>
+                            <option value="Mi Tesoro"></option>
+                            <option value="MonteVerde"></option>
+                            <option value="Nueva Campiña"></option>
+                            <option value="Nueva Jerusalén"></option>
+                            <option value="Nueva Esperanza"></option>
+                            <option value="Nuevo Balmoral I Sector"></option>
+                            <option value="Nuevo Balmoral II Sector"></option>
+                            <option value="Olaya"></option>
+                            <option value="Parques de Occidente Etapas I y II"></option>
+                            <option value="Prados de Altagracia"></option>
+                            <option value="Prados de Bethel I Etapa"></option>
+                            <option value="Prados de Bethel II Etapa"></option>
+                            <option value="Pekín I Sector"></option>
+                            <option value="Pekín II Sector"></option>
+                            <option value="Pekín IV Sector"></option>
+                            <option value="Piedra Grande"></option>
+                            <option value="Pedro Pablo Bello"></option>
+                            <option value="Popular Obrero"></option>
+                            <option value="Potosí"></option>
+                            <option value="Porvenir (La Salle)"></option>
+                            <option value="Quinta Balmoral"></option>
+                            <option value="Reserva de Bethel"></option>
+                            <option value="Sabaneta"></option>
+                            <option value="San Antonio"></option>
+                            <option value="San Diego La Venta"></option>
+                            <option value="San Francisco"></option>
+                            <option value="San Jorge"></option>
+                            <option value="San Mateo"></option>
+                            <option value="San Fernando"></option>
+                            <option value="Santa Ana Campestre"></option>
+                            <option value="Santa Anita"></option>
+                            <option value="Santa Bárbara"></option>
+                            <option value="Santo Domingo"></option>
+                            <option value="Santa Clara"></option>
+                            <option value="Santa Librada"></option>
+                            <option value="Santa Rosa"></option>
+                            <option value="Santa María de Los Ángeles"></option>
+                            <option value="Santander"></option>
+                            <option value="Siboney"></option>
+                            <option value="Simón Bolívar"></option>
+                            <option value="Teresita I"></option>
+                            <option value="Teresita II"></option>
+                            <option value="Toluca"></option>
+                            <option value="Triángulo de Desarrollo"></option>
+                            <option value="Urbanización Altos de Pekín"></option>
+                            <option value="Urbanización Cádiz"></option>
+                            <option value="Urbanización Cambulos"></option>
+                            <option value="Urbanización El Oasis"></option>
+                            <option value="Urbanización La Primavera"></option>
+                            <option value="Urbanización Las Brisas"></option>
+                            <option value="Urbanización Nueva Campiña"></option>
+                            <option value="Urbanización Parques de Occidente Etapas I y II"></option>
+                            <option value="Urbanización Pedregal de San Luis"></option>
+                            <option value="Urbanización Villa Alix"></option>
+                            <option value="Urbanización Los Girasoles"></option>
+                            <option value="Urbanización San Diego La Venta"></option>
+                            <option value="Urbanización Santa Anita"></option>
+                            <option value="Urbanización Siboney"></option>
+                            <option value="Urbanización Teresita I"></option>
+                            <option value="Urbanización Teresita II"></option>
+                            <option value="Urbanización Villa Rosita"></option>
+                            <option value="Urbanización Villas de San Diego I"></option>
+                            <option value="Urbanización Villas de San Diego II"></option>
+                            <option value="Urbanización Villas de San José"></option>
+                            <option value="Urbanización Villas del Rosario"></option>
+                            <option value="Urbanización Villa Natalia"></option>
+                            <option value="Urbanización Villa Rosalía"></option>
+                            <option value="Urbanización Villa Sutagaos"></option>
+                            <option value="Valencia"></option>
+                            <option value="Villa Alix"></option>
+                            <option value="Villa Aránzazu"></option>
+                            <option value="Villa Amerita"></option>
+                            <option value="Villa Adriana"></option>
+                            <option value="Villa Celeste"></option>
+                            <option value="Villa Country"></option>
+                            <option value="Villa de Los Sutagaos"></option>
+                            <option value="Villa María"></option>
+                            <option value="Villa Natalia"></option>
+                            <option value="Villa Rosalía"></option>
+                            <option value="Villa Patricia - San Marcos"></option>
+                            <option value="Villa Lady"></option>
+                            <option value="Villa Luz"></option>
+                            <option value="Villa Lenny"></option>
+                            <option value="Villas de San Diego I"></option>
+                            <option value="Villas de San Diego II"></option>
+                            <option value="Villas de La Pampa"></option>
+                        </datalist>
+                        <label for="Barrio">Barrio</label>
+                        <input list="Barrios" name="Barrio" id="Barrio" placeholder="El Progreso" th:field="*{barrio}"
+                            required />
+                    </div>
+                    <div class="input-container">
+                        <label for="Seguros">Seguro Medico</label>
+                        <select id="Seguros" name="Seguros Medicos" value="Nueva Eps" th:field="*{seguroMedico}"
+                            required>
+                            <option value="Nueva Eps">Nueva Eps</option>
+                            <option value="Sanitas">Sanitas</option>
+                            <option value="Sura">Sura</option>
+                            <option value="Compensar">Compensar</option>
+                            <option value="Salud Total">Salud Total</option>
+                            <option value="Famisanar">Famisanar</option>
+                            <option value="Aliansalud">Aliansalud</option>
+                            <option value="Mutual Ser">Mutual Ser</option>
+                            <option value="Capital Salud">Capital Salud</option>
+                            <option value="Cajacopi">Cajacopi</option>
+                            <option value="Coosalud">Coosalud</option>
+                            <option value="Asmet Salud">Asmet Salud</option>
+                            <option value="Emssanar">Emssanar</option>
+                            <option value="Savia Salud">Savia Salud</option>
+                            <option value="Capresoca">Capresoca</option>
+                            <option value="Comfachocó">Comfachocó</option>
+                            <option value="Ecoopsos">Ecoopsos</option>
+                            <option value="Anas Wayuu EPS-I">Anas Wayuu EPS-I</option>
+                            <option value="Dusakawi EPS-I">Dusakawi EPS-I</option>
+                            <option value="PIJAOS SALUD EPS-I">PIJAOS SALUD EPS-I</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form__info-group">
+                <legend class="info-group__description">Información de contacto</legend>
+                <div class="info-group__input-container">
+                    <div class="input-container">
+                        <label>Email<input type="email" th:field="*{correo}" placeholder="email@gmail.com"
+                                required /></label>
+                    </div>
+                    <div class="input-container">
+                        <label>Teléfono<input type="text" th:field="*{telefono}" placeholder="0123456789"
+                                required /></label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form__info-group">
+                <legend class="info-group__description">Información de la cuenta</legend>
+                <div class="info-group__input-container">
+                    <div class="input-container">
+                        <label>Contraseña<input type="password" id="Contraseña" th:field="*{contrasena}"
+                                required /></label>
+                    </div>
+                    <div class="input-container">
+                        <label>Confirmar Contraseña<input type="password" id="CContraseña" required /></label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form__button-container">
+                <input type="submit" value="Registrarse" class="form__button" />
+            </div>
+            <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+        </form>
+    </main>
+</div>
