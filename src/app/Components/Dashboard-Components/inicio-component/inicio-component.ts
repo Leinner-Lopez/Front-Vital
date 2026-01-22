@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AgendarCita } from "../../Modales/agendar-cita/agendar-cita";
+import { AuthService } from '../../../Services/auth-service';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { AgendarCita } from "../../Modales/agendar-cita/agendar-cita";
 export class InicioComponent {
 
   modalEstado = signal(false);
+  authService: AuthService = inject(AuthService);
 
   díasSemana: string[] = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
   nombreUser: string = "Leinner Lopez";
@@ -18,6 +20,7 @@ export class InicioComponent {
 
   dispararApertura() {
     this.modalEstado.set(true);
+    console.log(this.authService.getUserId());
   }
 
   getFechaFormateada(): string {

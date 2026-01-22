@@ -10,7 +10,8 @@
 
         <ul class="group__list">
             <li class="list__item">
-                <a routerLink="/inicio" class="item__link" routerLinkActive="router-active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/inicio" class="item__link" routerLinkActive="router-active"
+                    [routerLinkActiveOptions]="{exact: true}">
                     <svg width="25" height="25" aria-hidden="true">
                         <use href="/image/sprite.svg#home"></use>
                     </svg>
@@ -45,12 +46,18 @@
                 </svg>
                 Agendar Cita
             </button>
-            <app-agendar-cita [(isOpen)] ="modalEstado"/>
+            <app-agendar-cita [(isOpen)]="modalEstado" />
             <button class="item__link">
                 <svg width="25" height="25">
                     <use href="/image/sprite.svg#calendar-check"></use>
                 </svg>
                 Disponibilidad
+            </button>
+            <button (click)="logOut()" class="item__link">
+                <svg width="25" height="25">
+                    <use href="/image/sprite.svg#logout"></use>
+                </svg>
+                Log out
             </button>
         </div>
     </section>

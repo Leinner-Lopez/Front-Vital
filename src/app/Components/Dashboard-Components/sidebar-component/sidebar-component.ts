@@ -1,6 +1,7 @@
-import { Component, model } from '@angular/core';
+import { Component, inject, model } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { AgendarCita } from '../../Modales/agendar-cita/agendar-cita';
+import { AuthService } from '../../../Services/auth-service';
 
 @Component({
   selector: 'app-sidebar-component',
@@ -10,6 +11,11 @@ import { AgendarCita } from '../../Modales/agendar-cita/agendar-cita';
 })
 export class SidebarComponent {
   modalEstado = model(false);
+  authService = inject(AuthService);
+
+  logOut(){
+    this.authService.logout();
+  }
 
   dispararApertura() {
     this.modalEstado.set(true);

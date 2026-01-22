@@ -24,7 +24,7 @@ export class LoginComponent {
   })
 
   onSubmit(){
-    if(this.formularioContacto.invalid) return;
+    if(this.formularioContacto.invalid) console.log("Formulario invalido");
 
     this.isLoading.set(true);
     this.errorMessage.set(null);
@@ -36,6 +36,7 @@ export class LoginComponent {
         this.router.navigate(['/inicio']);
       },
       error: (err) => {
+        this.errorMessage.set(err.error?.message || 'Error de autenticación');
         this.isLoading.set(false);
       }
     })

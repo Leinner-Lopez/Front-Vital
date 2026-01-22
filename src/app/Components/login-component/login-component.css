@@ -103,3 +103,8 @@ a {
 a:not(:is(:hover, :active)) {
     text-decoration: none;
 }
+
+.error__message{
+    font-weight: 600;
+    font-size: 1.4rem;
+}

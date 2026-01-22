@@ -1,5 +1,8 @@
 <div class="login__container">
     <main class="login">
+        @if (errorMessage()) {
+        <p class="error__message">{{errorMessage()}}</p>
+        }
         <div class="login__icon-container">
             <svg width="75" height="75">
                 <use href="/image/sprite.svg#user"></use>
@@ -10,36 +13,19 @@
                 <svg width="40" height="40">
                     <use href="/image/sprite.svg#id-card"></use>
                 </svg>
-                <input 
-                type="text" 
-                id="numeroDocumento" 
-                formControlName="Username"
-                placeholder="Número de Documento" 
-                name="username" 
-                required>
+                <input type="text" id="numeroDocumento" formControlName="Username" placeholder="Número de Documento"
+                    name="username" required>
             </div>
             <div class="form__input-container">
                 <svg width="40" height="40">
                     <use href="/image/sprite.svg#lock"></use>
                 </svg>
-                <input 
-                type="password" 
-                id="Contraseña" 
-                placeholder="Contraseña" 
-                name="password" 
-                formControlName="Password"
-                required>
+                <input type="password" id="Contraseña" placeholder="Contraseña" name="password"
+                    formControlName="Password" required>
             </div>
 
-            @if (errorMessage()) {
-                <p>{{errorMessage()}}</p>
-            }
-
-            <input 
-            type="submit" 
-            value="Login" 
-            [disabled]="formularioContacto.invalid || isLoading()"
-            class="form__button">
+            <input type="submit" value="Login" [disabled]="formularioContacto.invalid || isLoading()"
+                class="form__button">
         </form>
         <p>¿No tienes una cuenta? <a routerLink="/registrarse">Regístrate</a></p>
     </main>
