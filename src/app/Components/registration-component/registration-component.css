@@ -16,15 +16,15 @@
 }
 
 h1 {
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-align: center;
-    font-size: 1.85em;
+    font-size: 1.9rem;
     margin: 25px auto;
     color: var(--color-main);
 }
 
 .form__info-group {
-    padding: 15px;
+    padding: 10px;
     margin-bottom: 20px;
     border-color: var(--color-main);
 }
@@ -38,6 +38,12 @@ h1 {
 .info-group__input-container {
     display: grid;
     gap: 10px;
+    justify-items: center;
+}
+
+.input-container{
+    width: 85%;
+
 }
 
 label {
