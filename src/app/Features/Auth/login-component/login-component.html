@@ -24,7 +24,7 @@
                     formControlName="Password" required>
             </div>
 
-            <input type="submit" value="Login" [disabled]="formularioContacto.invalid || isLoading()"
+            <input type="submit" value="Login" [disabled]="formularioContacto.invalid"
                 class="form__button">
         </form>
         <p>¿No tienes una cuenta? <a routerLink="/registrarse">Regístrate</a></p>
