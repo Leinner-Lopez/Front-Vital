@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CitaDTO } from '../Models/Cita';
+import { CitaDTO } from '../Interfaces/Cita';
 import { Observable } from 'rxjs';
-import { EstadoCita } from '../Models/EstadoCita';
+import { EstadoCita } from '../Interfaces/EstadoCita';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CitaService {
   httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/citas';
+  private readonly apiUrl = `${environment.apiUrl}/citas`;
 
   public agendarCita(cita: CitaDTO): Observable<CitaDTO> {
     return this.httpClient.post<CitaDTO>(this.apiUrl, cita);
@@ -36,7 +37,7 @@ export class CitaService {
   }
 
   actualizarCita(id: number, estadoCita: EstadoCita): Observable<void> {
-    return this.httpClient.put<void>(`${this.apiUrl}/${id}`,estadoCita);
+    return this.httpClient.put<void>(`${this.apiUrl}/${id}`, estadoCita);
   }
 
   eliminarCita(id: number): Observable<void> {

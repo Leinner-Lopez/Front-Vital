@@ -1,8 +1,8 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { AgendarCita } from "../../Modales/agendar-cita/agendar-cita";
-import { AuthService } from '../../../Services/auth-service';
-import { Administrador } from '../../../Models/Administrador';
-import { AdministradorService } from '../../../Services/administrador-service';
+import { AgendarCita } from "../../../Shared/Modales/agendar-cita/agendar-cita";
+import { AuthService } from '../../../Core/Services/auth-service';
+import { Administrador } from '../../../Data/Interfaces/Administrador';
+import { AdministradorService } from '../../../Data/Services/administrador-service';
 
 
 @Component({

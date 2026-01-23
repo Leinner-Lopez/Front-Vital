@@ -1,7 +1,7 @@
 import { Component, inject, model } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
-import { AgendarCita } from '../../Modales/agendar-cita/agendar-cita';
-import { AuthService } from '../../../Services/auth-service';
+import { AgendarCita } from '../Modales/agendar-cita/agendar-cita';
+import { AuthService } from '../../Core/Services/auth-service';
 
 @Component({
   selector: 'app-sidebar-component',

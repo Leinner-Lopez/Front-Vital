@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import { LoginRequest } from '../Models/LoginRequest';
+import { LoginRequest } from '../../Data/Interfaces/LoginRequest';
 import { tap } from 'rxjs';
-import { jwtDecode} from 'jwt-decode';
-import { MyJwtPayload } from '../Auth/MyJwtPayload';
+import { jwtDecode } from 'jwt-decode';
+import { MyJwtPayload } from '../../Data/Interfaces/MyJwtPayload';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class AuthService {
   httpCLient = inject(HttpClient);
   router = inject(Router);
   private platformId = inject(PLATFORM_ID);
-  private apiUrl = 'http://localhost:8080/auth';
+  private readonly apiUrl = `${environment.apiUrl}/auth`;
 
   token = signal<string | null>(null);
   userRole = signal<string | null>(null);
@@ -49,7 +50,7 @@ export class AuthService {
         this.token.set(respuesta.token);
         this.isAuthenticated.set(true);
         const decodedToken: MyJwtPayload | null = this.decodeToken(respuesta.token);
-        if(decodedToken){
+        if (decodedToken) {
           this.userRole.set(decodedToken.role);
           this.userId.set(decodedToken.sub ? parseInt(decodedToken.sub) : null);
         }
@@ -84,7 +85,7 @@ export class AuthService {
   }
 
   /** Decodifica el token JWT y devuelve el payload o null si falla. */
-  private decodeToken(Token: string | null) :MyJwtPayload | null{
+  private decodeToken(Token: string | null): MyJwtPayload | null {
     if (!Token) return null;
     try {
       return jwtDecode(Token);
@@ -102,10 +103,10 @@ export class AuthService {
   getUserRole() {
     return this.userRole();
   }
-  
+
   /** Devuelve el ID del usuario autenticado. */
   getUserId() {
     return this.userId();
   }
-  
+
 }

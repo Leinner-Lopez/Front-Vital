@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Medico, MedicoDTO } from '../Models/Medico';
+import { Medico, MedicoDTO } from '../Interfaces/Medico';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MedicoService {
   httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/medico';
+  private readonly apiUrl = `${environment.apiUrl}/medico`;
 
-  registrarMedico(medico:Medico): Observable<Medico> {
+  registrarMedico(medico: Medico): Observable<Medico> {
     return this.httpClient.post<Medico>(this.apiUrl, medico);
   }
 

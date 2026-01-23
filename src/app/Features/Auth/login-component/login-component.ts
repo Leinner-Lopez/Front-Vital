@@ -6,7 +6,7 @@ import { LoginRequest } from '../../../Data/Interfaces/LoginRequest';
 
 @Component({
   selector: 'app-login-component',
-  imports: [RouterLink,ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './login-component.html',
   styleUrl: './login-component.css',
 })
@@ -15,30 +15,45 @@ export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  isLoading = signal(false);
   errorMessage = signal<string | null>(null);
-  
-  formularioContacto:FormGroup = this.form.group({
-    Username: ['', [Validators.required,Validators.minLength(8)]],
+
+  formularioContacto: FormGroup = this.form.group({
+    Username: ['', [Validators.required, Validators.minLength(8)]],
     Password: ['', Validators.required]
   })
 
-  onSubmit(){
-    if(this.formularioContacto.invalid) console.log("Formulario invalido");
+  onSubmit() {
+    if (this.formularioContacto.invalid) return;
 
-    this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    const credenciales:LoginRequest = this.formularioContacto.getRawValue();
+    const credenciales: LoginRequest = this.formularioContacto.getRawValue();
 
     this.authService.login(credenciales).subscribe({
       next: () => {
-        this.router.navigate(['/inicio']);
+        const role = this.authService.getUserRole();
+        this.redirectByUserRole(role);
       },
       error: (err) => {
         this.errorMessage.set(err.error?.message || 'Error de autenticación');
-        this.isLoading.set(false);
       }
     })
+  }
+
+  private redirectByUserRole(role: string | null) {
+    switch (role) {
+      case 'ROLE_ADMINISTRADOR':
+        this.router.navigate(['/admin/dashboard']);
+        break;
+      case 'ROLE_MEDICO':
+        this.router.navigate(['/medico/dashboard']);
+        break;
+      case 'ROLE_PACIENTE':
+        this.router.navigate(['/paciente/dashboard']);
+        break;
+      default:
+        this.router.navigate(['/login']);
+        break;
+    }
   }
 }

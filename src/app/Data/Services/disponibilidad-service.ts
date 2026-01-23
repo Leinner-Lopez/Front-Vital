@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { DisponibilidadDTO, DisponibilidadDtoHoras } from '../Models/Disponibilidad';
+import { DisponibilidadDTO, DisponibilidadDtoHoras } from '../Interfaces/Disponibilidad';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DisponibilidadService {
   httpClient = inject(HttpClient);
-  private apiUrl = 'https://localhost:8080/disponibilidad';
+  private readonly apiUrl = `${environment.apiUrl}/disponibilidad`;
 
   registrarDisponibilidad(disponibilidad: DisponibilidadDTO): Observable<DisponibilidadDTO> {
     return this.httpClient.post<DisponibilidadDTO>(this.apiUrl, disponibilidad);

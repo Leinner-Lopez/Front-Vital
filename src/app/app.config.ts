@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './Auth/Interceptor';
+import { authInterceptor } from './Core/Interceptors/Interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
