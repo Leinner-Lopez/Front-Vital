@@ -42,7 +42,14 @@
     height: 50px;
 }
 
-.form__input-container {
+.form__input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+.input-container {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -106,5 +113,6 @@ a:not(:is(:hover, :active)) {
 
 .error__message{
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
+    color: rgba(240, 20, 20);
 }

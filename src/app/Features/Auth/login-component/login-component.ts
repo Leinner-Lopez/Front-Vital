@@ -17,17 +17,22 @@ export class LoginComponent {
 
   errorMessage = signal<string | null>(null);
 
-  formularioContacto: FormGroup = this.form.group({
+  formularioLogin: FormGroup = this.form.group({
     Username: ['', [Validators.required, Validators.minLength(8)]],
     Password: ['', Validators.required]
   })
 
+  hasError(controlName: string, errorType:string): boolean {
+    const control = this.formularioLogin.get(controlName);
+    return control?.hasError(errorType) && (control.dirty || control.touched) || false;
+  }
+
   onSubmit() {
-    if (this.formularioContacto.invalid) return;
+    if (this.formularioLogin.invalid) return;
 
     this.errorMessage.set(null);
 
-    const credenciales: LoginRequest = this.formularioContacto.getRawValue();
+    const credenciales: LoginRequest = this.formularioLogin.getRawValue();
 
     this.authService.login(credenciales).subscribe({
       next: () => {
@@ -43,13 +48,13 @@ export class LoginComponent {
   private redirectByUserRole(role: string | null) {
     switch (role) {
       case 'ROLE_ADMINISTRADOR':
-        this.router.navigate(['/admin/dashboard']);
+        this.router.navigate(['/admin/inicio']);
         break;
       case 'ROLE_MEDICO':
-        this.router.navigate(['/medico/dashboard']);
+        this.router.navigate(['/medico/inicio']);
         break;
       case 'ROLE_PACIENTE':
-        this.router.navigate(['/paciente/dashboard']);
+        this.router.navigate(['/paciente/inicio']);
         break;
       default:
         this.router.navigate(['/login']);

@@ -1,8 +1,10 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { AgendarCita } from "../../../Shared/Modales/agendar-cita/agendar-cita";
 import { AuthService } from '../../../Core/Services/auth-service';
-import { Administrador } from '../../../Data/Interfaces/Administrador';
 import { AdministradorService } from '../../../Data/Services/administrador-service';
+import { Medico } from '../../../Data/Interfaces/Medico';
+import { MedicoService } from '../../../Data/Services/medico-service';
+import { CitaService } from '../../../Data/Services/cita-service';
 
 
 @Component({
@@ -13,19 +15,34 @@ import { AdministradorService } from '../../../Data/Services/administrador-servi
 })
 export class InicioComponent implements OnInit {
 
-  administrador = signal<Administrador | null>(null);
-  nombreAdministrador = computed(() => this.administrador()?.nombres || 'Cargando...');
-  numeroDocumento = computed(() => this.administrador()?.numeroDocumento || 'Cargando...');
+  medico = signal<Medico | null>(null);
+  nombreMedico = computed(() => this.medico()?.nombres || 'Cargando...');
+  numeroDocumento = computed(() => this.medico()?.numeroDocumento || 'Cargando...');
+  citasHoy = signal<number>(2);
+
   modalEstado = signal(false);
+
   authService: AuthService = inject(AuthService);
-  administradorService = inject(AdministradorService);
+  medicoService = inject(MedicoService);
+  citaService = inject(CitaService);
 
   ngOnInit(): void {
     const id = this.authService.getUserId();
     if (id) {
-      this.administradorService.obtenerAdministradorPorId(id).subscribe({
-        next: (data) => this.administrador.set(data),
+      this.medicoService.obtenerMedicoPorId(id).subscribe({
+        next: (data) => this.medico.set(data),
         error: (err) => console.error('Error CORS o de red:', err)
+      });
+      this.citaService.obtenerCitasAceptadas(id).subscribe({
+        next: (citas) => {
+          const hoy = new Date();
+          this.citasHoy.set(citas.filter(cita => {
+            const fechaCita = new Date(cita.fechaCita);
+            return fechaCita.getDate() === hoy.getDate() &&
+              fechaCita.getMonth() === hoy.getMonth() &&
+              fechaCita.getFullYear() === hoy.getFullYear();
+          }).length);
+        }
       });
     }
   }

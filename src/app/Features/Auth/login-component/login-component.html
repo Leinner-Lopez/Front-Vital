@@ -8,24 +8,37 @@
                 <use href="/image/sprite.svg#user"></use>
             </svg>
         </div>
-        <form class="login__form" [formGroup]="formularioContacto" (ngSubmit)="onSubmit()">
+        <form class="login__form" [formGroup]="formularioLogin" (ngSubmit)="onSubmit()">
             <div class="form__input-container">
-                <svg width="40" height="40">
-                    <use href="/image/sprite.svg#id-card"></use>
-                </svg>
-                <input type="text" id="numeroDocumento" formControlName="Username" placeholder="Número de Documento"
-                    name="username" required>
+                <div class="input-container">
+                    <svg width="40" height="40">
+                        <use href="/image/sprite.svg#id-card"></use>
+                    </svg>
+                    <input type="text" id="numeroDocumento" formControlName="Username" placeholder="Número de Documento" name="username">
+                </div>
+                @if (hasError('Username','required')) {
+                <p class="error__message">El campo es requerido</p>
+                }
+                @if(hasError('Username','minlength')){
+                <p class="error__message">Debe contener mínimo 8 caracteres</p>
+                }
             </div>
             <div class="form__input-container">
-                <svg width="40" height="40">
-                    <use href="/image/sprite.svg#lock"></use>
-                </svg>
-                <input type="password" id="Contraseña" placeholder="Contraseña" name="password"
-                    formControlName="Password" required>
+                <div class="form__input-container">
+                    <div class="input-container">
+                        <svg width="40" height="40">
+                            <use href="/image/sprite.svg#lock"></use>
+                        </svg>
+                        <input type="password" id="Contraseña" placeholder="Contraseña" name="password"
+                            formControlName="Password" required>
+                    </div>
+                    @if (hasError('Password','required')) {
+                    <p class="error__message">El campo es requerido</p>
+                    }
+                </div>
             </div>
 
-            <input type="submit" value="Login" [disabled]="formularioContacto.invalid"
-                class="form__button">
+            <input type="submit" value="Login" [disabled]="formularioLogin.invalid" class="form__button">
         </form>
         <p>¿No tienes una cuenta? <a routerLink="/registrarse">Regístrate</a></p>
     </main>

@@ -7,6 +7,7 @@ import { tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { MyJwtPayload } from '../../Data/Interfaces/MyJwtPayload';
 import { environment } from '../../../environments/environment.development';
+import { RegisterRequest } from '../../Data/Interfaces/RegisterRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +57,10 @@ export class AuthService {
         }
       })
     )
+  }
+
+  register(userData: RegisterRequest){
+    return this.httpCLient.post<{ message: string }>(`${this.apiUrl}/register`, userData);
   }
 
   /** Cierra la sesión eliminando el token, restableciendo el estado y redirigiendo al login. */

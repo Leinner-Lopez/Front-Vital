@@ -41,7 +41,7 @@ h1 {
     justify-items: center;
 }
 
-.input-container{
+.input-container {
     width: 85%;
 
 }
@@ -161,6 +161,13 @@ a:not(:is(:hover, :active)) {
     min-width: 200px;
     font-size: 1.5em;
     padding: 12px;
+}
+
+.error__message {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    color: rgba(240, 20, 20);
 }
 
 /*-----------MEDIA QUERIES-----------*/
