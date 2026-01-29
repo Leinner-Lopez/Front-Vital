@@ -1,0 +1,13 @@
+@if (isOpen()) {
+<dialog open class="modal">
+    <button class="modal__close" (click)="isOpen.set(false)">
+        <svg width="25" height="25" aria-hidden="true">
+            <use href="/image/sprite.svg#close"></use>
+        </svg>
+    </button>
+    <h2>Error</h2>
+    <div class="modal__content">
+        <h3>{{message()}}</h3>
+    </div>
+</dialog>
+}

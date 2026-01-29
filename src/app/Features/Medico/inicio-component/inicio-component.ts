@@ -1,39 +1,48 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { AgendarCita } from "../../../Shared/Modales/agendar-cita/agendar-cita";
 import { AuthService } from '../../../Core/Services/auth-service';
-import { AdministradorService } from '../../../Data/Services/administrador-service';
 import { Medico } from '../../../Data/Interfaces/Medico';
 import { MedicoService } from '../../../Data/Services/medico-service';
 import { CitaService } from '../../../Data/Services/cita-service';
+import { DatePipe } from '@angular/common';
+import { CitaDTO } from '../../../Data/Interfaces/Cita';
 
 
 @Component({
   selector: 'app-inicio-component',
-  imports: [AgendarCita],
+  imports: [AgendarCita, DatePipe],
   templateUrl: './inicio-component.html',
   styleUrl: './inicio-component.css',
 })
 export class InicioComponent implements OnInit {
 
   medico = signal<Medico | null>(null);
-  nombreMedico = computed(() => this.medico()?.nombres || 'Cargando...');
-  numeroDocumento = computed(() => this.medico()?.numeroDocumento || 'Cargando...');
-  citasHoy = signal<number>(2);
+  nombreMedico = computed(() => this.medico()?.nombres);
+  numeroDocumento = computed(() => this.authService.getUserId());
+  filtroActual = signal<'Pendientes' | 'Completadas'>('Pendientes');
+  citasHoy = signal<CitaDTO[]>([]);
 
   modalEstado = signal(false);
 
   authService: AuthService = inject(AuthService);
-  medicoService = inject(MedicoService);
-  citaService = inject(CitaService);
+  medicoService: MedicoService = inject(MedicoService);
+  citaService: CitaService = inject(CitaService);
 
   ngOnInit(): void {
-    const id = this.authService.getUserId();
-    if (id) {
-      this.medicoService.obtenerMedicoPorId(id).subscribe({
+    if (this.numeroDocumento()) {
+      this.medicoService.obtenerMedicoPorId(this.numeroDocumento()!).subscribe({
         next: (data) => this.medico.set(data),
         error: (err) => console.error('Error CORS o de red:', err)
       });
-      this.citaService.obtenerCitasAceptadas(id).subscribe({
+      this.cargarCitas(this.filtroActual());
+    }
+  }
+
+
+//Cargar citas según el filtro
+  cargarCitas(filtro: string): void {
+    if (filtro === 'Pendientes') {
+      this.citaService.obtenerCitasPendientes(this.numeroDocumento()!).subscribe({
         next: (citas) => {
           const hoy = new Date();
           this.citasHoy.set(citas.filter(cita => {
@@ -41,10 +50,29 @@ export class InicioComponent implements OnInit {
             return fechaCita.getDate() === hoy.getDate() &&
               fechaCita.getMonth() === hoy.getMonth() &&
               fechaCita.getFullYear() === hoy.getFullYear();
-          }).length);
+          }));
+        }
+      });
+    } else {
+      this.citaService.obtenerCitasCompletadas(this.numeroDocumento()!).subscribe({
+        next: (citas) => {
+          const hoy = new Date();
+          this.citasHoy.set(citas.filter(cita => {
+            const fechaCita = new Date(cita.fechaCita);
+            return fechaCita.getDate() === hoy.getDate() &&
+              fechaCita.getMonth() === hoy.getMonth() &&
+              fechaCita.getFullYear() === hoy.getFullYear();
+          }));
         }
       });
     }
+  }
+
+  //Cambiar el filtro y recargar citas
+  cambiarFiltro(nuevoFiltro: 'Pendientes' | 'Completadas'): void {
+    if (this.filtroActual() === nuevoFiltro) return;
+    this.filtroActual.set(nuevoFiltro);
+    this.cargarCitas(this.filtroActual());
   }
 
   díasSemana: string[] = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -52,7 +80,6 @@ export class InicioComponent implements OnInit {
 
   dispararApertura() {
     this.modalEstado.set(true);
-    console.log(this.authService.getUserId());
   }
 
   getFechaFormateada(): string {

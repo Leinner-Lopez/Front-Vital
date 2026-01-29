@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../../Core/Services/auth-service';
 import { LoginRequest } from '../../../Data/Interfaces/LoginRequest';
+import { ErrorModal } from "../../../Shared/Modales/error-modal/error-modal";
 
 @Component({
   selector: 'app-login-component',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, ErrorModal],
   templateUrl: './login-component.html',
   styleUrl: './login-component.css',
 })
@@ -14,7 +15,7 @@ export class LoginComponent {
   form = inject(FormBuilder)
   authService = inject(AuthService);
   router = inject(Router);
-
+  isOpen = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
 
   formularioLogin: FormGroup = this.form.group({
@@ -30,7 +31,6 @@ export class LoginComponent {
   onSubmit() {
     if (this.formularioLogin.invalid) return;
 
-    this.errorMessage.set(null);
 
     const credenciales: LoginRequest = this.formularioLogin.getRawValue();
 
@@ -40,7 +40,8 @@ export class LoginComponent {
         this.redirectByUserRole(role);
       },
       error: (err) => {
-        this.errorMessage.set(err.error?.message || 'Error de autenticación');
+        this.errorMessage.set("Credenciales Incorrectas. Por favor, intente nuevamente.");
+        this.isOpen.set(true);
       }
     })
   }

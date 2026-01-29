@@ -1,8 +1,5 @@
 <div class="login__container">
     <main class="login">
-        @if (errorMessage()) {
-        <p class="error__message">{{errorMessage()}}</p>
-        }
         <div class="login__icon-container">
             <svg width="75" height="75">
                 <use href="/image/sprite.svg#user"></use>
@@ -43,3 +40,4 @@
         <p>¿No tienes una cuenta? <a routerLink="/registrarse">Regístrate</a></p>
     </main>
 </div>
+<app-error-modal [(isOpen)]="isOpen" [message]="errorMessage()"/>

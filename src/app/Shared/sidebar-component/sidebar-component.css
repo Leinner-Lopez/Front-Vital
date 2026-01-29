@@ -89,7 +89,6 @@ h3 {
         background-color: var(--color-notifications);
     }
 
-    /* Hacemos que los section no bloqueen el flujo */
     .navbar__group {
         flex-direction: row;
         flex: 1;
