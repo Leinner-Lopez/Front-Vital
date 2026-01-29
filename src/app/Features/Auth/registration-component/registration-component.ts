@@ -18,6 +18,7 @@ export class RegistrationComponent {
   authService = inject(AuthService);
   router = inject(Router);
   mensajeError = signal<string | null>(null);
+  title = signal<string | null>(null);
   isOpen = model<boolean>(false);
 
   formularioRegistration: FormGroup = this.form.group({
@@ -31,7 +32,7 @@ export class RegistrationComponent {
     telefono: ['', [Validators.required, Validators.minLength(10)]],
     contrasena: ['', Validators.required],
     confirmarContrasena: ['', Validators.required]
-  },{ validators: passwordMatchValidator });
+  }, { validators: passwordMatchValidator });
 
   onSubmit() {
     if (this.formularioRegistration.invalid) return;
@@ -40,14 +41,20 @@ export class RegistrationComponent {
 
     this.authService.register(userData).subscribe({
       next: () => {
-        this.router.navigate(['/login']);
+        this.title.set('Registro Exitoso');
+        this.mensajeError.set('Registro exitoso. Por favor, inicie sesión.');
+        this.isOpen.set(true);
+        setTimeout(() => {
+          this.router.navigate(["login"]);
+        }, 2500);
       },
-      error: (err:HttpErrorResponse) => {
-        if(err.status === 409){
-          const mensaje = "El número de documento ya está registrado";
-          this.mensajeError.set(mensaje);
+      error: (err: HttpErrorResponse) => {
+        if (err.status === 409) {
+          this.title.set('Error de Registro');
+          this.mensajeError.set("El número de documento ya está registrado");
           this.isOpen.set(true);
-        }else{
+        } else {
+          this.title.set('Error de Registro');
           this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
           this.isOpen.set(true);
         }
@@ -56,7 +63,7 @@ export class RegistrationComponent {
   }
 
 
-  hasError(controlName: string, errorType:string): boolean {
+  hasError(controlName: string, errorType: string): boolean {
     const control = this.formularioRegistration.get(controlName);
     return control?.hasError(errorType) && (control.dirty || control.touched) || false;
   }
