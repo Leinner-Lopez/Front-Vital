@@ -9,56 +9,23 @@
         </header>
 
         <ul class="group__list">
+            @for (item of menuItems(); track item.route) {
             <li class="list__item">
-                <a routerLink="/medico/inicio" class="item__link" routerLinkActive="router-active"
+                <a [routerLink]="item.route" class="item__link" routerLinkActive="router-active"
                     [routerLinkActiveOptions]="{exact: true}">
                     <svg width="25" height="25" aria-hidden="true">
-                        <use href="/image/sprite.svg#home"></use>
+                        <use [attr.href]="'image/sprite.svg#' + item.icon"></use>
                     </svg>
-                    Inicio
+                    {{item.label}}
                 </a>
             </li>
-            <li class="list__item">
-                <a routerLink="/medico/pacientes" class="item__link" routerLinkActive="router-active">
-                    <svg width="25" height="25" aria-hidden="true">
-                        <use href="/image/sprite.svg#users"></use>
-                    </svg>
-                    Pacientes
-                </a>
-            </li>
-            <li class="list__item">
-                <a routerLink="/medico/citas" class="item__link" routerLinkActive="router-active">
-                    <svg width="25" height="25" aria-hidden="true">
-                        <use href="/image/sprite.svg#clock"></use>
-                    </svg>
-                    Citas
-                </a>
-            </li>
-        </ul>
-    </section>
-
-    <section class="navbar__group opcion__group">
-        <h4 class="group__title">Opciones</h4>
-        <div class="group__list">
-            <button class="item__link" (click)="dispararApertura()">
-                <svg width="25" height="25">
-                    <use href="/image/sprite.svg#calendar-add"></use>
-                </svg>
-                Agendar Cita
-            </button>
-            <app-agendar-cita [(isOpen)]="modalEstado" />
-            <button class="item__link">
-                <svg width="25" height="25">
-                    <use href="/image/sprite.svg#calendar-check"></use>
-                </svg>
-                Disponibilidad
-            </button>
+            }
             <button (click)="logOut()" class="item__link">
                 <svg width="25" height="25">
                     <use href="/image/sprite.svg#logout"></use>
                 </svg>
                 Log out
             </button>
-        </div>
+        </ul>
     </section>
 </nav>

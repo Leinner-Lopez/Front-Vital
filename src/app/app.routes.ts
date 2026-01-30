@@ -9,18 +9,28 @@ import { roleGuard } from './Core/Guards/role-guard';
 import { InicioComponent } from './Features/Medico/inicio-component/inicio-component';
 import { PacientesComponent } from './Features/Medico/pacientes-component/pacientes-component';
 import { CitasComponent } from './Features/Medico/citas-component/citas-component';
+import { InicioAdministrador } from './Features/Administrador/inicio-administrador/inicio-administrador';
+import { MedicosAdministrador } from './Features/Administrador/medicos-administrador/medicos-administrador';
+import { PacientesAdministrador } from './Features/Administrador/pacientes-administrador/pacientes-administrador';
+import { CitasAdministrador } from './Features/Administrador/citas-administrador/citas-administrador';
+import { AdministradoresAdministrador } from './Features/Administrador/administradores-administrador/administradores-administrador';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'registrarse', component: RegistrationComponent },
     { path: 'login', component: LoginComponent },
     {
-        path: 'admin/inicio',
+        path: 'admin',
         component: DashboardAdministradorComponent,
         canActivate: [authGuard, roleGuard],
         data: { roles: ['ROLE_ADMINISTRADOR'] },
         children: [
-
+            {path: 'inicio', component: InicioAdministrador},
+            {path: 'medicos', component: MedicosAdministrador},
+            {path: 'pacientes', component: PacientesAdministrador},
+            {path: 'administradores', component: AdministradoresAdministrador},
+            {path: 'citas', component: CitasAdministrador},
+            {path: '', redirectTo: 'inicio', pathMatch: 'full'}
         ]
     },
     {
@@ -36,7 +46,7 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'paciente/inicio',
+        path: 'paciente',
         component: DashboardPacienteComponent,
         canActivate: [authGuard, roleGuard],
         data: { roles: ['ROLE_PACIENTE'] },

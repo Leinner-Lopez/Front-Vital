@@ -116,6 +116,7 @@ h3 {
         border-radius: 8px;
         flex: 1;
         transition: scale .4s;
+        max-width: max-content;
     }
 
     .item__link:is(:hover, :active),

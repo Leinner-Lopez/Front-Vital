@@ -17,6 +17,7 @@ export class LoginComponent {
   router = inject(Router);
   isOpen = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
+  title = signal<string | null>(null);
 
   formularioLogin: FormGroup = this.form.group({
     Username: ['', [Validators.required, Validators.minLength(8)]],
@@ -41,6 +42,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.errorMessage.set("Credenciales Incorrectas. Por favor, intente nuevamente.");
+        this.title.set('Error de Inicio de Sesión');
         this.isOpen.set(true);
       }
     })

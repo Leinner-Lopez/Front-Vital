@@ -40,4 +40,4 @@
         <p>¿No tienes una cuenta? <a routerLink="/registrarse">Regístrate</a></p>
     </main>
 </div>
-<app-error-modal [(isOpen)]="isOpen" [message]="errorMessage()"/>
+<app-error-modal [(isOpen)]="isOpen" [message]="errorMessage()" [title]="title()"/>
