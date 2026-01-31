@@ -20,7 +20,8 @@ export class InicioComponent implements OnInit {
   nombreMedico = computed(() => this.medico()?.nombres);
   numeroDocumento = computed(() => this.authService.getUserId());
   filtroActual = signal<'Pendientes' | 'Completadas'>('Pendientes');
-  citasHoy = signal<CitaDTO[]>([]);
+  citasHoy = signal<number>(100);
+  citas = signal<CitaDTO[]>([]);
 
   modalEstado = signal(false);
 
@@ -42,22 +43,23 @@ export class InicioComponent implements OnInit {
 //Cargar citas según el filtro
   cargarCitas(filtro: string): void {
     if (filtro === 'Pendientes') {
-      this.citaService.obtenerCitasPendientes(this.numeroDocumento()!).subscribe({
+      this.citaService.obtenerCitasAceptadas(this.numeroDocumento()!).subscribe({
         next: (citas) => {
           const hoy = new Date();
-          this.citasHoy.set(citas.filter(cita => {
+          this.citas.set(citas.filter(cita => {
             const fechaCita = new Date(cita.fechaCita);
             return fechaCita.getDate() === hoy.getDate() &&
               fechaCita.getMonth() === hoy.getMonth() &&
               fechaCita.getFullYear() === hoy.getFullYear();
           }));
+          this.citasHoy.set(this.citas().length);
         }
       });
     } else {
       this.citaService.obtenerCitasCompletadas(this.numeroDocumento()!).subscribe({
         next: (citas) => {
           const hoy = new Date();
-          this.citasHoy.set(citas.filter(cita => {
+          this.citas.set(citas.filter(cita => {
             const fechaCita = new Date(cita.fechaCita);
             return fechaCita.getDate() === hoy.getDate() &&
               fechaCita.getMonth() === hoy.getMonth() &&
@@ -68,7 +70,7 @@ export class InicioComponent implements OnInit {
     }
   }
 
-  //Cambiar el filtro y recargar citas
+
   cambiarFiltro(nuevoFiltro: 'Pendientes' | 'Completadas'): void {
     if (this.filtroActual() === nuevoFiltro) return;
     this.filtroActual.set(nuevoFiltro);

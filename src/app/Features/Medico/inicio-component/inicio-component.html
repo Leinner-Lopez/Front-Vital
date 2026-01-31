@@ -8,7 +8,7 @@
         <section class="main__summary">
             <article class="summary__card card--black">
                 <p>Hoy tienes</p>
-                <strong>{{ citasHoy().length }} citas</strong>
+                <strong>{{ citasHoy() }} citas</strong>
                 <button class="card__button" aria-label="Añadir cita" (click)="dispararApertura()">
                     <svg width="22" height="22">
                         <use href="/image/sprite.svg#calendar-add"></use>
@@ -39,7 +39,7 @@
             </header>
 
             <ul class="agenda__list">
-                @for (cita of citasHoy(); track cita.id) {
+                @for (cita of citas(); track cita.id) {
                 <li class="list__item">
                     <div class="item__info">
                         <p>

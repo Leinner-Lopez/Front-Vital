@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { CitaDTO } from '../Interfaces/Cita';
 import { Observable } from 'rxjs';
-import { EstadoCita } from '../Interfaces/EstadoCita';
+import { EstadoCita } from '../Enum/EstadoCita';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -18,6 +18,14 @@ export class CitaService {
 
   public obtenerCitas(): Observable<CitaDTO[]> {
     return this.httpClient.get<CitaDTO[]>(this.apiUrl);
+  }
+
+  public obtenerCitasPorEstado(estado: EstadoCita): Observable<CitaDTO[]> {
+    return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/cita?estado=${estado}`);
+  }
+
+  obtenerCitasMedico(id: number): Observable<CitaDTO[]> {
+    return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/medico/${id}`);
   }
 
   public obtenerCitasAceptadas(id: number): Observable<CitaDTO[]> {
