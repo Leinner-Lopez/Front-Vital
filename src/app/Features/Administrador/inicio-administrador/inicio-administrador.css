@@ -1,4 +1,4 @@
-.dashboard {
+.inicio__view {
     display: grid;
     grid-template-columns: 1.8fr 1fr;
     padding: 20px 5px;
@@ -6,7 +6,7 @@
     height: 100dvh;
 }
 
-.dashboard__main {
+.view__main {
     display: flex;
     flex-direction: column;
     gap: 20px;

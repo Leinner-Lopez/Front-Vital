@@ -1,1 +1,54 @@
-<p>citas-administrador works!</p>
+<section class="citas__view">
+    <header class="view__header">
+        <h2 class="header__title">Citas</h2>
+        <button class="header__button">
+            <svg width="20" height="20" aria-hidden="true">
+                <use href="/image/sprite.svg#add"></use>
+            </svg>
+            Registrar</button>
+    </header>
+
+    <section class="view__cards">
+        <ul class="cards__list">
+            <li class="list__item">
+                <small class="item__title">Totales</small>
+                <strong class="item__content">{{citasTotales()}}</strong>
+            </li>
+            <li class="list__item">
+                <small class="item__title">Pendientes</small>
+                <strong class="item__content">{{citasPendientes()}}</strong>
+            </li>
+            <li class="list__item">
+                <small class="item__title">Completadas</small>
+                <strong class="item__content">{{citasCompletadas()}}</strong>
+            </li>
+            <li class="list__item">
+                <small class="item__title">Canceladas</small>
+                <strong class="item__content">{{citasCanceladas()}}</strong>
+            </li>
+        </ul>
+    </section>
+
+    <table class="view__table">
+        <thead class="table__title">
+            <tr class="title__row">
+                <th class="row__title">Estado</th>
+                <th class="row__title">Fecha y Hora</th>
+                <th class="row__title">Paciente</th>
+                <th class="row__title">Medico</th>
+                <th class="row__title">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="table__body">
+            @for (cita of citas(); track cita.id) {
+                <tr class="body__row">
+                    <td class="row__content">{{cita.estado}}</td>
+                    <td class="row__content">{{cita.fechaCita}}</td>
+                    <td class="row__content">{{cita.nombrePaciente}}</td>
+                    <td class="row__content">{{cita.nombreMedico}}</td>
+                    <td class="row__content">Hola</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

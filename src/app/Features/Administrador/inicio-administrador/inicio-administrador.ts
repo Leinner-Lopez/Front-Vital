@@ -19,7 +19,7 @@ export class InicioAdministrador implements OnInit {
   numeroDocumento = computed(() => this.authService.getUserId());
   filtroActual = signal<'Pendientes' | 'Completadas'>('Pendientes');
   nombreAdmin = computed(() => this.admin()?.nombres);
-  citasHoy = signal<number>(100);
+  citasHoy = signal<number>(1);
   citas = signal<CitaDTO[]>([]);
 
 

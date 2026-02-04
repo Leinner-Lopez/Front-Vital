@@ -1,0 +1,70 @@
+.medico__view {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px 20px 5px;
+    height: 100dvh;
+    gap: 20px;
+}
+
+.view__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__title {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.header__button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--color-background);
+    background-color: var(--color-main);
+    font-size: .9rem;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--color-main);
+}
+
+.cards__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    list-style: none;
+}
+
+.list__item {
+    background-color: var(--color-notifications);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    border-radius: 30px;
+}
+
+.item__title {
+    font-size: 1rem;
+}
+
+.item__content {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.row__title,
+.row__content {
+    text-align: start;
+    padding: 5px 0;
+}
+
+.row__title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.row__content {
+    font-size: 1rem;
+}

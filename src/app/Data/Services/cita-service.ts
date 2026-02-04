@@ -12,15 +12,15 @@ export class CitaService {
   httpClient = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/citas`;
 
-  public agendarCita(cita: CitaDTO): Observable<CitaDTO> {
+  agendarCita(cita: CitaDTO): Observable<CitaDTO> {
     return this.httpClient.post<CitaDTO>(this.apiUrl, cita);
   }
 
-  public obtenerCitas(): Observable<CitaDTO[]> {
+  obtenerCitas(): Observable<CitaDTO[]> {
     return this.httpClient.get<CitaDTO[]>(this.apiUrl);
   }
 
-  public obtenerCitasPorEstado(estado: EstadoCita): Observable<CitaDTO[]> {
+  obtenerCitasPorEstado(estado: EstadoCita): Observable<CitaDTO[]> {
     return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/cita?estado=${estado}`);
   }
 
@@ -28,20 +28,16 @@ export class CitaService {
     return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/medico/${id}`);
   }
 
-  public obtenerCitasAceptadas(id: number): Observable<CitaDTO[]> {
-    return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/aceptadas/${id}`);
-  }
-
-  public obtenerCitasCompletadas(id: number): Observable<CitaDTO[]> {
-    return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/completadas/${id}`);
-  }
-
-  public obtenerCitasPendientes(id: number): Observable<CitaDTO[]> {
-    return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/pendientes/${id}`);
+  obtenerCitasMedicoPorEstado(id: number, estado: EstadoCita): Observable<CitaDTO[]> {
+    return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/medico/${id}/estado?estado=${estado}`);
   }
 
   obtenerCitasPaciente(id: number): Observable<CitaDTO[]> {
     return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/paciente/${id}`);
+  }
+
+  obtenerCitasPacientePorEstado(id: number, estado: EstadoCita): Observable<CitaDTO[]> {
+    return this.httpClient.get<CitaDTO[]>(`${this.apiUrl}/paciente/${id}/estado?estado=${estado}`);
   }
 
   actualizarCita(id: number, estadoCita: EstadoCita): Observable<void> {

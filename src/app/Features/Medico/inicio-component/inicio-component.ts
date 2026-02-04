@@ -6,6 +6,7 @@ import { MedicoService } from '../../../Data/Services/medico-service';
 import { CitaService } from '../../../Data/Services/cita-service';
 import { DatePipe } from '@angular/common';
 import { CitaDTO } from '../../../Data/Interfaces/Cita';
+import { EstadoCita } from '../../../Data/Enum/EstadoCita';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class InicioComponent implements OnInit {
 //Cargar citas según el filtro
   cargarCitas(filtro: string): void {
     if (filtro === 'Pendientes') {
-      this.citaService.obtenerCitasAceptadas(this.numeroDocumento()!).subscribe({
+      this.citaService.obtenerCitasMedicoPorEstado(this.numeroDocumento()!,EstadoCita.ACEPTADA).subscribe({
         next: (citas) => {
           const hoy = new Date();
           this.citas.set(citas.filter(cita => {
@@ -56,7 +57,7 @@ export class InicioComponent implements OnInit {
         }
       });
     } else {
-      this.citaService.obtenerCitasCompletadas(this.numeroDocumento()!).subscribe({
+      this.citaService.obtenerCitasMedicoPorEstado(this.numeroDocumento()!,EstadoCita.COMPLETADA).subscribe({
         next: (citas) => {
           const hoy = new Date();
           this.citas.set(citas.filter(cita => {

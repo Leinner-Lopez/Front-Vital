@@ -1,1 +1,42 @@
-<p>medicos-administrador works!</p>
+<section class="medico__view">
+    <header class="view__header">
+        <h2 class="header__title">Médicos</h2>
+        <button class="header__button">
+            <svg width="20" height="20" aria-hidden="true">
+                <use href="/image/sprite.svg#add"></use>
+            </svg>
+            Registrar</button>
+    </header>
+
+    <section class="view__cards">
+        <ul class="cards__list">
+            <li class="list__item">
+                <small class="item__title">Totales</small>
+                <strong class="item__content">{{medicosTotales()}}</strong>
+            </li>
+        </ul>
+    </section>
+
+    <table class="view__table">
+        <thead class="table__title">
+            <tr class="title__row">
+                <th class="row__title">Nombres</th>
+                <th class="row__title">Apellidos</th>
+                <th class="row__title">Correo</th>
+                <th class="row__title">Especialidad</th>
+                <th class="row__title">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="table__body">
+            @for (medico of medicos(); track medico.numeroDocumento) {
+            <tr class="body__row">
+                <td class="row__content">{{medico.nombres}}</td>
+                <td class="row__content">{{medico.apellidos}}</td>
+                <td class="row__content">{{medico.correo}}</td>
+                <td class="row__content">{{medico.especialidad}}</td>
+                <td class="row__content">Hola</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</section>

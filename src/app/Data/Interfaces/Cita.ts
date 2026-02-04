@@ -1,7 +1,9 @@
+import { EstadoCita } from "../Enum/EstadoCita";
+
 export interface CitaDTO {
     id?: number;
     fechaCita: string;
-    estado: string;
+    estado: EstadoCita;
     documentoMedico: number;
     documentoPaciente: number;
     nombrePaciente: string;
