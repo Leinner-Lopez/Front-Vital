@@ -1,7 +1,7 @@
 <section class="paciente__view">
     <header class="view__header">
         <h2 class="header__title">Pacientes</h2>
-        <button (click)="cargarPacientes()" class="header__button">
+        <button (click)="isOpenForm.set(true)" class="header__button">
             <svg width="20" height="20" aria-hidden="true">
                 <use href="/image/sprite.svg#add"></use>
             </svg>
@@ -40,3 +40,4 @@
         </tbody>
     </table>
 </section>
+<app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Paciente'" (usuarioRegistrado)="cargarPacientes()"/>

@@ -19,7 +19,7 @@ export class RegistrationComponent {
   router = inject(Router);
   mensajeError = signal<string | null>(null);
   title = signal<string | null>(null);
-  isOpen = model<boolean>(false);
+  isOpenError = signal<boolean>(false);
 
   formularioRegistration: FormGroup = this.form.group({
     nombres: ['', Validators.required],
@@ -43,7 +43,7 @@ export class RegistrationComponent {
       next: () => {
         this.title.set('Registro Exitoso');
         this.mensajeError.set('Registro exitoso. Por favor, inicie sesión.');
-        this.isOpen.set(true);
+        this.isOpenError.set(true);
         setTimeout(() => {
           this.router.navigate(["login"]);
         }, 2500);
@@ -52,11 +52,11 @@ export class RegistrationComponent {
         if (err.status === 409) {
           this.title.set('Error de Registro');
           this.mensajeError.set("El número de documento ya está registrado");
-          this.isOpen.set(true);
+          this.isOpenError.set(true);
         } else {
           this.title.set('Error de Registro');
           this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
-          this.isOpen.set(true);
+          this.isOpenError.set(true);
         }
       }
     })
