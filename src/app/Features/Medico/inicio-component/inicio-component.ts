@@ -22,7 +22,8 @@ export class InicioComponent implements OnInit {
   numeroDocumento = computed(() => this.authService.getUserId());
   filtroActual = signal<'Pendientes' | 'Completadas'>('Pendientes');
   citasHoy = signal<number>(100);
-  citas = signal<CitaDTO[]>([]);
+  citasFiltro = signal<CitaDTO[]>([]);
+  citasPendientes = signal<CitaDTO[]>([]);
 
   modalEstado = signal(false);
 
@@ -36,31 +37,32 @@ export class InicioComponent implements OnInit {
         next: (data) => this.medico.set(data),
         error: (err) => console.error('Error CORS o de red:', err)
       });
-      this.cargarCitas(this.filtroActual());
+      this.cargarCitasFiltro(this.filtroActual());
+      this.cargarCitasPendientes();
     }
   }
 
 
-//Cargar citas según el filtro
-  cargarCitas(filtro: string): void {
+  //Cargar citas según el filtro
+  cargarCitasFiltro(filtro: string): void {
     if (filtro === 'Pendientes') {
-      this.citaService.obtenerCitasMedicoPorEstado(this.numeroDocumento()!,EstadoCita.ACEPTADA).subscribe({
+      this.citaService.obtenerCitasMedicoPorEstado(this.numeroDocumento()!, EstadoCita.ACEPTADA).subscribe({
         next: (citas) => {
           const hoy = new Date();
-          this.citas.set(citas.filter(cita => {
+          this.citasFiltro.set(citas.filter(cita => {
             const fechaCita = new Date(cita.fechaCita);
             return fechaCita.getDate() === hoy.getDate() &&
               fechaCita.getMonth() === hoy.getMonth() &&
               fechaCita.getFullYear() === hoy.getFullYear();
           }));
-          this.citasHoy.set(this.citas().length);
+          this.citasHoy.set(this.citasFiltro().length);
         }
       });
     } else {
-      this.citaService.obtenerCitasMedicoPorEstado(this.numeroDocumento()!,EstadoCita.COMPLETADA).subscribe({
+      this.citaService.obtenerCitasMedicoPorEstado(this.numeroDocumento()!, EstadoCita.COMPLETADA).subscribe({
         next: (citas) => {
           const hoy = new Date();
-          this.citas.set(citas.filter(cita => {
+          this.citasFiltro.set(citas.filter(cita => {
             const fechaCita = new Date(cita.fechaCita);
             return fechaCita.getDate() === hoy.getDate() &&
               fechaCita.getMonth() === hoy.getMonth() &&
@@ -69,28 +71,43 @@ export class InicioComponent implements OnInit {
         }
       });
     }
+  }
+
+  cargarCitasPendientes(): void {
+    this.citaService.obtenerCitasMedicoPorEstado(this.numeroDocumento()!, EstadoCita.PENDIENTE).subscribe({
+      next: (citas) => {
+        this.citasPendientes.set(citas);
+      }
+    })
   }
 
 
   cambiarFiltro(nuevoFiltro: 'Pendientes' | 'Completadas'): void {
     if (this.filtroActual() === nuevoFiltro) return;
     this.filtroActual.set(nuevoFiltro);
-    this.cargarCitas(this.filtroActual());
+    this.cargarCitasFiltro(this.filtroActual());
   }
 
   díasSemana: string[] = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-  fechaFormateada = this.getFechaFormateada();
+  fechaFormateada = this.getFechaFormateadaHoy();
 
   dispararApertura() {
     this.modalEstado.set(true);
   }
 
-  getFechaFormateada(): string {
+  getFechaFormateadaHoy(): string {
     const fecha: Date = new Date();
     const diaSemana: string = this.díasSemana[fecha.getDay()];
     const dia: number = fecha.getDate();
     const mes: string = fecha.toLocaleDateString('es-ES', { month: 'long' });
     return `${diaSemana}, ${dia} de ${mes}`;
+  }
+
+  getFechaFormateada(Fecha:string): string {
+    const fecha: Date = new Date(Fecha);
+    const dia: number = fecha.getDate();
+    const mes: string = fecha.toLocaleDateString('es-ES', { month: 'long' });
+    return `${dia} de ${mes}`;
   }
 
 }

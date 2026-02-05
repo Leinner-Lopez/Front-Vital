@@ -1,7 +1,7 @@
 <main class="dashboard">
     <section class="dashboard__main">
         <header class="main__header">
-            <h1 class="header__title">Hola, {{ nombreMedico() }}</h1>
+            <h1 class="header__title">Hola, {{ nombreMedico() || 'Usuario' }}</h1>
             <p class="header__date">{{ fechaFormateada }}</p>
         </header>
 
@@ -39,7 +39,7 @@
             </header>
 
             <ul class="agenda__list">
-                @for (cita of citas(); track cita.id) {
+                @for (cita of citasFiltro(); track cita.id) {
                 <li class="list__item">
                     <div class="item__info">
                         <p>
@@ -87,11 +87,11 @@
             </button>
         </header>
         <ul class="aside__list">
+            @for (cita of citasPendientes(); track cita.id) {
             <li class="list__date">
-                <h3>Ashly Giselle Barbosa Lopez</h3>
+                <h3>{{cita.nombrePaciente}}</h3>
                 <div class="date__details">
-                    <p>9 de Septiembre, 9:00AM</p>
-                    <span>El próximo martes</span>
+                    <p>{{getFechaFormateada(cita.fechaCita)}}, {{cita.fechaCita | date:'h:mm a'}}</p>
                 </div>
                 <div class="date__buttons">
                     <button class="actions__btn btn--black">
@@ -108,6 +108,7 @@
                     </button>
                 </div>
             </li>
+            }
         </ul>
     </aside>
 </main>

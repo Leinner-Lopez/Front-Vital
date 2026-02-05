@@ -41,8 +41,8 @@
                 @for (cita of citas(); track cita.id) {
                 <li class="list__item">
                     <div class="item__info">
-                        <p>
-                            <strong class="info__date">{{ cita.fechaCita | date: 'h:mm a' }}</strong>
+                        <p class="info__text">
+                            <strong class="text__date">{{ cita.fechaCita | date: 'h:mm a' }}</strong>
                             {{ cita.nombrePaciente }}
                         </p>
                     </div>

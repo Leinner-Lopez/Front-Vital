@@ -33,7 +33,8 @@
         <thead class="table__title">
             <tr class="title__row">
                 <th class="row__title">Estado</th>
-                <th class="row__title">Fecha y Hora</th>
+                <th class="row__title">Fecha</th>
+                <th class="row__title">Hora</th>
                 <th class="row__title">Paciente</th>
                 <th class="row__title">Medico</th>
                 <th class="row__title">Acciones</th>
@@ -43,7 +44,8 @@
             @for (cita of citas(); track cita.id) {
                 <tr class="body__row">
                     <td class="row__content">{{cita.estado}}</td>
-                    <td class="row__content">{{cita.fechaCita}}</td>
+                    <td class="row__content">{{getFechaFormateada(cita.fechaCita)}}</td>
+                    <td class="row__content">{{cita.fechaCita | date:'h:mm a'}}</td>
                     <td class="row__content">{{cita.nombrePaciente}}</td>
                     <td class="row__content">{{cita.nombreMedico}}</td>
                     <td class="row__content">Hola</td>
