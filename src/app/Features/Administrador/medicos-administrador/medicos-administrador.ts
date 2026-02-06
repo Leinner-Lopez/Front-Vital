@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MedicoService } from '../../../Data/Services/medico-service';
-import { MedicoDTO } from '../../../Data/Interfaces/Medico';
+import { Medico, MedicoDTO } from '../../../Data/Interfaces/Medico';
 import { RegistrarUsuario } from "../../../Shared/Modales/registrar-usuario/registrar-usuario";
 
 @Component({
@@ -13,6 +13,7 @@ export class MedicosAdministrador implements OnInit {
   medicoService: MedicoService = inject(MedicoService);
   medicosTotales = signal<number>(0);
   medicos = signal<MedicoDTO[]>([]);
+  medico = signal<Medico|null>(null);
   isOpenForm = signal<boolean>(false);
 
   ngOnInit(): void {
@@ -26,5 +27,27 @@ export class MedicosAdministrador implements OnInit {
         this.medicosTotales.set(medicos.length);
       }
     })
+  }
+
+  registrar() {
+    this.medico.set(null);
+    this.isOpenForm.set(true);
+  }
+
+  editMedico(numeroDocumento: number) {
+    this.medicoService.obtenerMedicoPorId(numeroDocumento).subscribe({
+      next: (medico) => {
+        this.medico.set(medico);
+        this.isOpenForm.set(true);
+      }
+    });
+  }
+
+  deleteMedico(numeroDocumento: number) {
+    this.medicoService.eliminarMedico(numeroDocumento).subscribe({
+      next: () => {
+        this.cargarMedicos();
+      }
+    });
   }
 }

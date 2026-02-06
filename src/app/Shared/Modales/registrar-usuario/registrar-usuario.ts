@@ -18,19 +18,34 @@ import { Administrador } from '../../../Data/Interfaces/Administrador';
   styleUrl: './registrar-usuario.css',
 })
 export class RegistrarUsuario implements OnInit {
-  form = inject(FormBuilder)
+
   pacienteService = inject(PacienteService);
   adminService = inject(AdministradorService);
   medicoService = inject(MedicoService);
+
+  form = inject(FormBuilder)
   router = inject(Router);
+
   mensajeError = signal<string | null>(null);
   title = signal<string | null>(null);
   isOpenError = model<boolean>(false);
   isOpenForm = model<boolean>(false);
   userRegister = input<string>('');
 
+  editUser = input<Paciente | Administrador | Medico | null>(null);
+
   ngOnInit(): void {
-    this.actualizarValidadores();
+    const usuario = this.editUser();
+
+    if (usuario) {
+      this.actualizarValidadores();
+      this.formularioRegistration.patchValue(usuario);
+      this.formularioRegistration.get('contrasena')?.setValue('');
+      this.formularioRegistration.get('confirmarContrasena')?.setValue('');
+      this.formularioRegistration.get('numeroDocumento')?.disable();
+    }else{
+      this.actualizarValidadores();
+    }
   }
 
   formularioRegistration: FormGroup = this.form.group({
@@ -43,8 +58,8 @@ export class RegistrarUsuario implements OnInit {
     correo: ['', [Validators.required, Validators.email]],
     telefono: ['', [Validators.required, Validators.minLength(10)]],
     especialidad: [''],
-    contrasena: ['', Validators.required],
-    confirmarContrasena: ['', Validators.required]
+    contrasena: [''],
+    confirmarContrasena: ['']
   }, { validators: passwordMatchValidator });
 
   @Output() usuarioRegistrado = new EventEmitter<void>();
@@ -52,82 +67,128 @@ export class RegistrarUsuario implements OnInit {
   onSubmit() {
     if (this.formularioRegistration.invalid) return;
 
-    if (this.userRegister() === 'Paciente') {
-      const pacienteData: Paciente = this.formularioRegistration.getRawValue();
-      this.pacienteService.registrarPaciente(pacienteData).subscribe({
-        next: () => {
-          this.title.set('Registro Exitoso');
-          this.mensajeError.set('Registro exitoso. Paciente guardado con Éxito');
-          this.isOpenError.set(true);
-          setTimeout(() => {
-            this.isOpenError.set(false);
-            this.usuarioRegistrado.emit();
-            this.isOpenForm.set(false);
-          }, 2000);
-        },
-        error: (err: HttpErrorResponse) => {
-          if (err.status === 409) {
-            this.title.set('Error de Registro');
-            this.mensajeError.set("El número de documento ya está registrado");
-            this.isOpenError.set(true);
-          } else {
-            this.title.set('Error de Registro');
-            this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
-            this.isOpenError.set(true);
-          }
+    const datos = this.formularioRegistration.getRawValue();
+    const isEditing = !!this.editUser();
+    switch (this.userRegister()) {
+      case 'Paciente':
+        if (isEditing) {
+          this.pacienteService.actualizarPaciente(datos).subscribe({
+            next: () => {
+              this.title.set('Registro Exitoso');
+              this.mensajeError.set('Registro exitoso. Paciente editado con Éxito');
+              this.isOpenError.set(true);
+              setTimeout(() => {
+                this.isOpenError.set(false);
+                this.usuarioRegistrado.emit();
+                this.isOpenForm.set(false);
+              }, 1500);
+            }
+          })
+        } else {
+          this.pacienteService.registrarPaciente(datos).subscribe({
+            next: () => {
+              this.title.set('Registro Exitoso');
+              this.mensajeError.set('Registro exitoso. Paciente guardado con Éxito');
+              this.isOpenError.set(true);
+              setTimeout(() => {
+                this.isOpenError.set(false);
+                this.usuarioRegistrado.emit();
+                this.isOpenForm.set(false);
+              }, 1500);
+            },
+            error: (err: HttpErrorResponse) => {
+              if (err.status === 409) {
+                this.title.set('Error de Registro');
+                this.mensajeError.set("El número de documento ya está registrado");
+                this.isOpenError.set(true);
+              } else {
+                this.title.set('Error de Registro');
+                this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
+                this.isOpenError.set(true);
+              }
+            }
+          });
         }
-      });
-    }
-    else if (this.userRegister() === 'Médico') {
-      const medicoData: Medico = this.formularioRegistration.getRawValue();
-      this.medicoService.registrarMedico(medicoData).subscribe({
-        next: () => {
-          this.title.set('Registro Exitoso');
-          this.mensajeError.set('Registro exitoso. Médico guardado con Éxito');
-          this.isOpenError.set(true);
-          setTimeout(() => {
-            this.isOpenError.set(false);
-            this.usuarioRegistrado.emit();
-            this.isOpenForm.set(false);
-          }, 2500);
-        },
-        error: (err: HttpErrorResponse) => {
-          if (err.status === 409) {
-            this.title.set('Error de Registro');
-            this.mensajeError.set("El número de documento ya está registrado");
-            this.isOpenError.set(true);
-          } else {
-            this.title.set('Error de Registro');
-            this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
-            this.isOpenError.set(true);
-          }
+        break;
+      case 'Médico':
+        if (isEditing) {
+          this.medicoService.actualizarMedico(datos).subscribe({
+            next: () => {
+              this.title.set('Registro Exitoso');
+              this.mensajeError.set('Registro exitoso. Médico editado con Éxito');
+              this.isOpenError.set(true);
+              setTimeout(() => {
+                this.isOpenError.set(false);
+                this.usuarioRegistrado.emit();
+                this.isOpenForm.set(false);
+              }, 1500);
+            }
+          });
+        } else {
+          this.medicoService.registrarMedico(datos).subscribe({
+            next: () => {
+              this.title.set('Registro Exitoso');
+              this.mensajeError.set('Registro exitoso. Médico guardado con Éxito');
+              this.isOpenError.set(true);
+              setTimeout(() => {
+                this.isOpenError.set(false);
+                this.usuarioRegistrado.emit();
+                this.isOpenForm.set(false);
+              }, 1500);
+            },
+            error: (err: HttpErrorResponse) => {
+              if (err.status === 409) {
+                this.title.set('Error de Registro');
+                this.mensajeError.set("El número de documento ya está registrado");
+                this.isOpenError.set(true);
+              } else {
+                this.title.set('Error de Registro');
+                this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
+                this.isOpenError.set(true);
+              }
+            }
+          });
         }
-      });
-    } else {
-      const adminData: Administrador = this.formularioRegistration.getRawValue();
-      this.adminService.registrarAdministrador(adminData).subscribe({
-        next: () => {
-          this.title.set('Registro Exitoso');
-          this.mensajeError.set('Registro exitoso. Administrador guardado con Éxito');
-          this.isOpenError.set(true);
-          setTimeout(() => {
-            this.isOpenError.set(false);
-            this.usuarioRegistrado.emit();
-            this.isOpenForm.set(false);
-          }, 2500);
-        },
-        error: (err: HttpErrorResponse) => {
-          if (err.status === 409) {
-            this.title.set('Error de Registro');
-            this.mensajeError.set("El número de documento ya está registrado");
-            this.isOpenError.set(true);
-          } else {
-            this.title.set('Error de Registro');
-            this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
-            this.isOpenError.set(true);
-          }
+        break;
+      default:
+        if (isEditing) {
+          this.adminService.actualizarAdministrador(datos).subscribe({
+            next: () => {
+              this.title.set('Registro Exitoso');
+              this.mensajeError.set('Registro exitoso. Administrador guardado con Éxito');
+              this.isOpenError.set(true);
+              setTimeout(() => {
+                this.isOpenError.set(false);
+                this.usuarioRegistrado.emit();
+                this.isOpenForm.set(false);
+              }, 1500);
+            }
+          });
+        } else {
+          this.adminService.registrarAdministrador(datos).subscribe({
+            next: () => {
+              this.title.set('Registro Exitoso');
+              this.mensajeError.set('Registro exitoso. Administrador guardado con Éxito');
+              this.isOpenError.set(true);
+              setTimeout(() => {
+                this.isOpenError.set(false);
+                this.usuarioRegistrado.emit();
+                this.isOpenForm.set(false);
+              }, 1500);
+            },
+            error: (err: HttpErrorResponse) => {
+              if (err.status === 409) {
+                this.title.set('Error de Registro');
+                this.mensajeError.set("El número de documento ya está registrado");
+                this.isOpenError.set(true);
+              } else {
+                this.title.set('Error de Registro');
+                this.mensajeError.set('Error en el registro. Por favor, intente nuevamente.');
+                this.isOpenError.set(true);
+              }
+            }
+          });
         }
-      });
     }
   }
 
@@ -138,19 +199,30 @@ export class RegistrarUsuario implements OnInit {
   }
 
   actualizarValidadores() {
-    const especialidadCtrl = this.formularioRegistration.get('especialidad');
-    const seguroCtrl = this.formularioRegistration.get('seguroMedico');
-    especialidadCtrl?.clearValidators();
-    seguroCtrl?.clearValidators();
-    if (this.userRegister() === 'Médico') {
-      especialidadCtrl?.setValidators([Validators.required]);
-      seguroCtrl?.setValue(''); // Limpiar valor por si acaso
-    } else if (this.userRegister() === 'Paciente') {
-      seguroCtrl?.setValidators([Validators.required]);
-      especialidadCtrl?.setValue('');
+    const contrasena = this.formularioRegistration.get('contrasena');
+    const confirmarContrasena = this.formularioRegistration.get('confirmarContrasena');
+    const especialidad = this.formularioRegistration.get('especialidad');
+    const seguro = this.formularioRegistration.get('seguroMedico');
+
+    [contrasena, confirmarContrasena, especialidad, seguro].forEach(c => c?.clearValidators());
+
+    if (this.editUser()) {
+      contrasena?.setValidators(null);
+      confirmarContrasena?.setValidators(null);
+    } else {
+      contrasena?.setValidators([Validators.required]);
+      confirmarContrasena?.setValidators([Validators.required]);
     }
-    especialidadCtrl?.updateValueAndValidity();
-    seguroCtrl?.updateValueAndValidity();
+
+    if (this.userRegister() === 'Médico') {
+      especialidad?.setValidators([Validators.required]);
+      seguro?.setValue('');
+    } else if (this.userRegister() === 'Paciente') {
+      seguro?.setValidators([Validators.required]);
+      especialidad?.setValue('');
+    }
+
+    [contrasena, confirmarContrasena, especialidad, seguro].forEach(c => c?.updateValueAndValidity());
   }
 
 }

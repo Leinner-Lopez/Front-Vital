@@ -11,22 +11,20 @@
             <legend class="info-group__description">Información del Usuario</legend>
             <div class="info-group__input-container">
                 <div class="input-container">
-                    <label>Nombre(s)<input type="text" formControlName="nombres" placeholder="Andres"
-                            required /></label>
+                    <label>Nombre(s)<input type="text" formControlName="nombres" placeholder="Andres" /></label>
                     @if (hasError('nombres','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }
                 </div>
                 <div class="input-container">
-                    <label>Apellido(s)<input type="text" formControlName="apellidos" placeholder="Torres"
-                            required /></label>
+                    <label>Apellido(s)<input type="text" formControlName="apellidos" placeholder="Torres" /></label>
                     @if (hasError('apellidos','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }
                 </div>
                 <div class="input-container">
                     <label for="Tipos Documento">Tipo de Documento</label>
-                    <select id="Tipos Documento" formControlName="tipoDocumento" required>
+                    <select id="Tipos Documento" formControlName="tipoDocumento">
                         <option value="RC">RC</option>
                         <option value="TI">TI</option>
                         <option value="CC">CC</option>
@@ -40,8 +38,8 @@
                     }
                 </div>
                 <div class="input-container">
-                    <label>Numero de Documento<input type="text" formControlName="numeroDocumento" minlength="8"
-                            required /></label>
+                    <label>Numero de Documento<input type="text" formControlName="numeroDocumento"
+                            minlength="8" /></label>
                     @if (hasError('numeroDocumento','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }
@@ -250,8 +248,8 @@
                         <option value="Villas de La Pampa"></option>
                     </datalist>
                     <label for="Barrio">Barrio</label>
-                    <input list="Barrios" name="Barrio" id="Barrio" placeholder="El Progreso" formControlName="barrio"
-                        required />
+                    <input list="Barrios" name="Barrio" id="Barrio" placeholder="El Progreso"
+                        formControlName="barrio" />
                     @if (hasError('barrio','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }
@@ -259,8 +257,7 @@
                 @if (userRegister() === 'Paciente') {
                 <div class="input-container">
                     <label for="Seguros">Seguro Medico</label>
-                    <select id="Seguros" name="Seguros Medicos" value="Nueva Eps" formControlName="seguroMedico"
-                        required>
+                    <select id="Seguros" name="Seguros Medicos" value="Nueva Eps" formControlName="seguroMedico">
                         <option value="Nueva Eps">Nueva Eps</option>
                         <option value="Sanitas">Sanitas</option>
                         <option value="Sura">Sura</option>
@@ -291,7 +288,7 @@
                 <div class="input-container">
                     <label for="Especialidad">Especialidad</label>
                     <select id="Especialidad" name="Especialidad" value="Medicina Interna"
-                        formControlName="especialidad" required>
+                        formControlName="especialidad">
                         <option value="Medicina Interna">Medicina Interna</option>
                         <option value="Pediatría">Pediatría</option>
                         <option value="Ginecología y Obstetricia">Ginecología y Obstetricia</option>
@@ -324,8 +321,7 @@
             <legend class="info-group__description">Información de contacto</legend>
             <div class="info-group__input-container">
                 <div class="input-container">
-                    <label>Email<input type="email" formControlName="correo" placeholder="email@gmail.com"
-                            required /></label>
+                    <label>Email<input type="email" formControlName="correo" placeholder="email@gmail.com" /></label>
                     @if (hasError('correo','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }
@@ -334,8 +330,7 @@
                     }
                 </div>
                 <div class="input-container">
-                    <label>Teléfono<input type="text" formControlName="telefono" placeholder="0123456789"
-                            required /></label>
+                    <label>Teléfono<input type="text" formControlName="telefono" placeholder="0123456789" /></label>
                     @if (hasError('telefono','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }
@@ -349,8 +344,7 @@
             <legend class="info-group__description">Información de la cuenta</legend>
             <div class="info-group__input-container">
                 <div class="input-container">
-                    <label>Contraseña<input type="password" id="Contraseña" formControlName="contrasena"
-                            required /></label>
+                    <label>Contraseña<input type="password" id="Contraseña" formControlName="contrasena" /></label>
                     @if (hasError('contrasena','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }
@@ -361,7 +355,7 @@
                 </div>
                 <div class="input-container">
                     <label>Confirmar Contraseña<input type="password" id="CContraseña"
-                            formControlName="confirmarContrasena" required /></label>
+                            formControlName="confirmarContrasena" /></label>
                     @if (hasError('confirmarContrasena','required')) {
                     <p class="error__message">El campo es requerido</p>
                     }

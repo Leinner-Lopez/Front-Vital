@@ -69,3 +69,37 @@
 .row__content {
     font-size: 1rem;
 }
+
+.content--actions {
+    display: flex;
+    gap: 10px;
+}
+
+.content__button {
+    display: flex;
+    border-radius: 20px;
+    padding: 6px;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color .5s, color .5s;
+}
+
+.button--edit {
+    border: 2px solid var(--color-main);
+    background-color: var(--color-background);
+}
+
+.button--delete {
+    border: 2px solid var(--color-error);
+    color: var(--color-error);
+}
+
+.button--edit:hover {
+    background-color: var(--color-main);
+    color: var(--color-background);
+}
+
+.button--delete:hover {
+    background-color: var(--color-error);
+    color: var(--color-background);
+}

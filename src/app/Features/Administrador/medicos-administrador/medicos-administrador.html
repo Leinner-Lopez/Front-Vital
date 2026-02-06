@@ -1,7 +1,7 @@
 <section class="medico__view">
     <header class="view__header">
         <h2 class="header__title">Médicos</h2>
-        <button class="header__button" (click)="isOpenForm.set(true)">
+        <button class="header__button" (click)="registrar()">
             <svg width="20" height="20" aria-hidden="true">
                 <use href="/image/sprite.svg#add"></use>
             </svg>
@@ -34,10 +34,26 @@
                 <td class="row__content">{{medico.apellidos}}</td>
                 <td class="row__content">{{medico.correo}}</td>
                 <td class="row__content">{{medico.especialidad}}</td>
-                <td class="row__content">Hola</td>
+                <td class="row__content content--actions">
+                    <button (click)="editMedico(medico.numeroDocumento)" class="content__button button--edit">
+                        <svg width="20" height="20" aria-hidden="true">
+                            <use href="/image/sprite.svg#edit"></use>
+                        </svg>
+                        Editar
+                    </button>
+                    <button (click)="deleteMedico(medico.numeroDocumento)" class="content__button button--delete">
+                        <svg width="20" height="20" aria-hidden="true">
+                            <use href="/image/sprite.svg#delete"></use>
+                        </svg>
+                        Eliminar
+                    </button>
+                </td>
             </tr>
             }
         </tbody>
     </table>
 </section>
-<app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Médico'" (usuarioRegistrado)="cargarMedicos()"/>
+@if (isOpenForm()) {
+<app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Médico'" (usuarioRegistrado)="cargarMedicos()"
+    [editUser]="medico()" />
+}

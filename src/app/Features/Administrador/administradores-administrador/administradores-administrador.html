@@ -1,7 +1,7 @@
 <section class="admin__view">
     <header class="view__header">
         <h2 class="header__title">Administradores</h2>
-        <button class="header__button" (click)="isOpenForm.set(true)">
+        <button class="header__button" (click)="registrar()">
             <svg width="20" height="20" aria-hidden="true">
                 <use href="/image/sprite.svg#add"></use>
             </svg>
@@ -29,15 +29,29 @@
         </thead>
         <tbody class="table__body">
             @for (admin of admins(); track admin.numeroDocumento) {
-                <tr class="body__row">
-                    <td class="row__content">{{admin.nombres}}</td>
-                    <td class="row__content">{{admin.apellidos}}</td>
-                    <td class="row__content">{{admin.correo}}</td>
-                    <td class="row__content">{{admin.telefono}}</td>
-                    <td class="row__content">Hola</td>
-                </tr>
+            <tr class="body__row">
+                <td class="row__content">{{admin.nombres}}</td>
+                <td class="row__content">{{admin.apellidos}}</td>
+                <td class="row__content">{{admin.correo}}</td>
+                <td class="row__content">{{admin.telefono}}</td>
+                <td class="row__content content--actions">
+                    <button (click)="editAdmin(admin.numeroDocumento)" class="content__button button--edit">
+                        <svg width="20" height="20" aria-hidden="true">
+                            <use href="/image/sprite.svg#edit"></use>
+                        </svg>
+                        Editar
+                    </button>
+                    <button (click)="deleteAdmin(admin.numeroDocumento)" class="content__button button--delete">
+                        <svg width="20" height="20" aria-hidden="true">
+                            <use href="/image/sprite.svg#delete"></use>
+                        </svg>
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
 </section>
-<app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Admin'" (usuarioRegistrado)="cargarAdministradores()"/>
+<app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Admin'"
+    (usuarioRegistrado)="cargarAdministradores()" [editUser]="admin()"/>

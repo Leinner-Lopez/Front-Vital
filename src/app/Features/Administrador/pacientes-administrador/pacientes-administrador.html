@@ -1,7 +1,7 @@
 <section class="paciente__view">
     <header class="view__header">
         <h2 class="header__title">Pacientes</h2>
-        <button (click)="isOpenForm.set(true)" class="header__button">
+        <button (click)="registrar()" class="header__button">
             <svg width="20" height="20" aria-hidden="true">
                 <use href="/image/sprite.svg#add"></use>
             </svg>
@@ -29,15 +29,31 @@
         </thead>
         <tbody class="table__body">
             @for (paciente of pacientes(); track paciente.numeroDocumento) {
-                <tr class="body__row">
-                    <td class="row__content">{{paciente.nombres}}</td>
-                    <td class="row__content">{{paciente.apellidos}}</td>
-                    <td class="row__content">{{paciente.correo}}</td>
-                    <td class="row__content">{{paciente.seguroMedico}}</td>
-                    <td class="row__content">Hola</td>
-                </tr>
+            <tr class="body__row">
+                <td class="row__content">{{paciente.nombres}}</td>
+                <td class="row__content">{{paciente.apellidos}}</td>
+                <td class="row__content">{{paciente.correo}}</td>
+                <td class="row__content">{{paciente.seguroMedico}}</td>
+                <td class="row__content content--actions">
+                    <button (click)="editUser(paciente.numeroDocumento)" class="content__button button--edit">
+                        <svg width="20" height="20" aria-hidden="true">
+                            <use href="/image/sprite.svg#edit"></use>
+                        </svg>
+                        Editar
+                    </button>
+                    <button (click)="deleteUser(paciente.numeroDocumento)" class="content__button button--delete">
+                        <svg width="20" height="20" aria-hidden="true">
+                            <use href="/image/sprite.svg#delete"></use>
+                        </svg>
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
 </section>
-<app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Paciente'" (usuarioRegistrado)="cargarPacientes()"/>
+@if(isOpenForm()){
+    <app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Paciente'" (usuarioRegistrado)="cargarPacientes()"
+    [editUser]="paciente()" />
+}
