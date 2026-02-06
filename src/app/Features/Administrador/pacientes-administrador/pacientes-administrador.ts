@@ -14,6 +14,8 @@ export class PacientesAdministrador implements OnInit {
   isOpenForm = signal<boolean>(false);
   pacienteService: PacienteService = inject(PacienteService);
   pacientesTotales = signal<number>(0);
+  pacientesActivos = signal<number>(0);
+  pacientesInactivos = signal<number>(0);
   pacientes = signal<PacienteDTO[]>([]);
 
   ngOnInit(): void {
@@ -25,27 +27,29 @@ export class PacientesAdministrador implements OnInit {
       next: (pacientes) => {
         this.pacientes.set(pacientes);
         this.pacientesTotales.set(pacientes.length);
+        this.pacientesActivos.set(pacientes.filter(paciente => paciente.estado === 'ACTIVO').length);
+        this.pacientesInactivos.set(pacientes.filter(paciente => paciente.estado === 'INACTIVO').length);
       }
     });
   }
 
-  registrar(){
+  registrar() {
     this.paciente.set(null);
     this.isOpenForm.set(true);
   }
 
-  editUser(numeroDocumento:number){
+  editUser(numeroDocumento: number) {
     this.pacienteService.obtenerPacientePorId(numeroDocumento).subscribe({
-      next: (paciente) =>{
+      next: (paciente) => {
         this.paciente.set(paciente);
         this.isOpenForm.set(true);
       }
     });
   }
 
-  deleteUser(numeroDocumento:number){
+  deleteUser(numeroDocumento: number) {
     this.pacienteService.eliminarPaciente(numeroDocumento).subscribe({
-      next: () =>{
+      next: () => {
         this.cargarPacientes();
       }
     });

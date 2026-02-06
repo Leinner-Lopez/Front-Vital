@@ -11,8 +11,10 @@ import { RegistrarUsuario } from "../../../Shared/Modales/registrar-usuario/regi
 })
 export class AdministradoresAdministrador implements OnInit {
   adminTotales = signal(0);
-  admin = signal<Administrador | null>(null);
+  administrador = signal<Administrador | null>(null);
   admins = signal<AdministradorDTO[]>([]);
+  adminsInactivos = signal<number>(0);
+  adminsActivos = signal<number>(0);
   adminService = inject(AdministradorService);
   isOpenForm = signal<boolean>(false);
 
@@ -25,19 +27,21 @@ export class AdministradoresAdministrador implements OnInit {
       next: (admins) => {
         this.admins.set(admins);
         this.adminTotales.set(admins.length);
+        this.adminsActivos.set(admins.filter(admin => admin.estado === 'ACTIVO').length);
+        this.adminsInactivos.set(admins.filter(admin => admin.estado === 'INACTIVO').length);
       }
     })
   }
 
   registrar(){
-    this.admin.set(null);
+    this.administrador.set(null);
     this.isOpenForm.set(true);
   }
 
   editAdmin(numeroDocumento:number){
     this.adminService.obtenerAdministradorPorId(numeroDocumento).subscribe({
       next: (admin) =>{
-        this.admin.set(admin);
+        this.administrador.set(admin);
         this.isOpenForm.set(true);
       }
     });

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Paciente } from '../Interfaces/Paciente';
+import { Paciente, PacienteDTO } from '../Interfaces/Paciente';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -15,8 +15,8 @@ export class PacienteService {
     return this.httpClient.post<Paciente>(this.apiUrl, paciente);
   }
 
-  obtenerPacientes(): Observable<Paciente[]> {
-    return this.httpClient.get<Paciente[]>(this.apiUrl);
+  obtenerPacientes(): Observable<PacienteDTO[]> {
+    return this.httpClient.get<PacienteDTO[]>(this.apiUrl);
   }
 
   obtenerPacientePorId(id: number): Observable<Paciente> {

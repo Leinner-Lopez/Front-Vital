@@ -14,6 +14,14 @@
                 <small class="item__title">Totales</small>
                 <strong class="item__content">{{pacientesTotales()}}</strong>
             </li>
+            <li class="list__item">
+                <small class="item__title">Activos</small>
+                <strong class="item__content">{{pacientesActivos()}}</strong>
+            </li>
+            <li class="list__item">
+                <small class="item__title">Inactivos</small>
+                <strong class="item__content">{{pacientesInactivos()}}</strong>
+            </li>
         </ul>
     </section>
 
@@ -22,7 +30,7 @@
             <tr class="title__row">
                 <th class="row__title">Nombres</th>
                 <th class="row__title">Apellidos</th>
-                <th class="row__title">Correo</th>
+                <th class="row__title">Estado</th>
                 <th class="row__title">Seguro Medico</th>
                 <th class="row__title">Acciones</th>
             </tr>
@@ -32,7 +40,7 @@
             <tr class="body__row">
                 <td class="row__content">{{paciente.nombres}}</td>
                 <td class="row__content">{{paciente.apellidos}}</td>
-                <td class="row__content">{{paciente.correo}}</td>
+                <td class="row__content">{{paciente.estado}}</td>
                 <td class="row__content">{{paciente.seguroMedico}}</td>
                 <td class="row__content content--actions">
                     <button (click)="editUser(paciente.numeroDocumento)" class="content__button button--edit">
@@ -54,6 +62,6 @@
     </table>
 </section>
 @if(isOpenForm()){
-    <app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Paciente'" (usuarioRegistrado)="cargarPacientes()"
+<app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Paciente'" (usuarioRegistrado)="cargarPacientes()"
     [editUser]="paciente()" />
 }

@@ -1,3 +1,5 @@
+import { EstadoUsuario } from "../Enum/EstadoUsuario";
+
 export interface Medico {
     numeroDocumento: number;
     nombres: string;
@@ -7,12 +9,14 @@ export interface Medico {
     telefono: string;
     barrio: string;
     contrasena: string;
-    especialidad:string;
+    especialidad: string;
+    estado: EstadoUsuario;
 }
-export interface MedicoDTO{
-    numeroDocumento:number;
-    nombres:string;
-    apellidos:string;
-    correo:string;
-    especialidad:string;
+export interface MedicoDTO {
+    numeroDocumento: number;
+    nombres: string;
+    apellidos: string;
+    correo: string;
+    especialidad: string;
+    estado: EstadoUsuario;
 }

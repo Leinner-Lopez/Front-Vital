@@ -13,7 +13,9 @@ export class MedicosAdministrador implements OnInit {
   medicoService: MedicoService = inject(MedicoService);
   medicosTotales = signal<number>(0);
   medicos = signal<MedicoDTO[]>([]);
-  medico = signal<Medico|null>(null);
+  medicosInactivos = signal<number>(0);
+  medicosActivos = signal<number>(0);
+  medico = signal<Medico | null>(null);
   isOpenForm = signal<boolean>(false);
 
   ngOnInit(): void {
@@ -25,6 +27,8 @@ export class MedicosAdministrador implements OnInit {
       next: (medicos) => {
         this.medicos.set(medicos);
         this.medicosTotales.set(medicos.length);
+        this.medicosActivos.set(medicos.filter(medico => medico.estado === 'ACTIVO').length);
+        this.medicosInactivos.set(medicos.filter(medico => medico.estado === 'INACTIVO').length);
       }
     })
   }
