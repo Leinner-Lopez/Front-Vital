@@ -14,6 +14,9 @@ import { MedicosAdministrador } from './Features/Administrador/medicos-administr
 import { PacientesAdministrador } from './Features/Administrador/pacientes-administrador/pacientes-administrador';
 import { CitasAdministrador } from './Features/Administrador/citas-administrador/citas-administrador';
 import { AdministradoresAdministrador } from './Features/Administrador/administradores-administrador/administradores-administrador';
+import { InicioPaciente } from './Features/Paciente/inicio-paciente/inicio-paciente';
+import { MedicosPaciente } from './Features/Paciente/medicos-paciente/medicos-paciente';
+import { CitasPaciente } from './Features/Paciente/citas-paciente/citas-paciente';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -51,7 +54,10 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['ROLE_PACIENTE'] },
         children: [
-
+            {path: 'inicio', component: InicioPaciente},
+            {path: 'medicos', component: MedicosPaciente},
+            {path: 'citas', component: CitasPaciente},
+            {path: '', redirectTo: 'inicio', pathMatch: 'full'}
         ]
     },
 ];
