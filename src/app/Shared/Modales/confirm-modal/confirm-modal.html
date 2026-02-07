@@ -1,0 +1,20 @@
+@if(isOpenConfirm()){
+<dialog class="modal">
+    <button class="modal__close" (click)="isOpenConfirm.set(false)">
+        <svg width="20" height="20" aria-hidden="true">
+            <use href="/image/sprite.svg#close"></use>
+        </svg>
+    </button>
+    <h2 class="modal__title">Confirmar Eliminación</h2>
+    <div class="modal__content">
+        <h3 class="content__text" >Deseas eliminar este {{this.usuario()}}?</h3>
+        <div class="content__buttons">
+            <button (click)="aceptar()" class="buttons__button button--accept">Aceptar</button>
+            <button (click)="cancelar()" class="buttons__button button--cancel">Cancelar</button>
+        </div>
+    </div>
+</dialog>
+
+<app-error-modal [(isOpen)]="isOpenError" [title]="titleError()" [message]="mensajeError()" />
+
+}

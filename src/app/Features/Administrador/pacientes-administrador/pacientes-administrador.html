@@ -65,3 +65,6 @@
 <app-registrar-usuario [(isOpenForm)]="isOpenForm" [userRegister]="'Paciente'" (usuarioRegistrado)="cargarPacientes()"
     [editUser]="paciente()" />
 }
+@if(isOpenConfirm()){
+    <app-confirm-modal [(isOpenConfirm)]="isOpenConfirm" [usuario]="'Paciente'" [numeroDocumento]="numeroDocumento()" (usuarioEliminado)="cargarPacientes()"/>
+}

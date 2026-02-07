@@ -2,21 +2,27 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PacienteService } from '../../../Data/Services/paciente-service';
 import { Paciente, PacienteDTO } from '../../../Data/Interfaces/Paciente';
 import { RegistrarUsuario } from "../../../Shared/Modales/registrar-usuario/registrar-usuario";
+import { ConfirmModal } from "../../../Shared/Modales/confirm-modal/confirm-modal";
 
 @Component({
   selector: 'app-pacientes-administrador',
-  imports: [RegistrarUsuario],
+  imports: [RegistrarUsuario, ConfirmModal],
   templateUrl: './pacientes-administrador.html',
   styleUrl: './pacientes-administrador.css',
 })
 export class PacientesAdministrador implements OnInit {
+
   paciente = signal<Paciente | null>(null);
   isOpenForm = signal<boolean>(false);
-  pacienteService: PacienteService = inject(PacienteService);
+  isOpenConfirm = signal<boolean>(false);
+  numeroDocumento = signal<number>(0);
   pacientesTotales = signal<number>(0);
   pacientesActivos = signal<number>(0);
   pacientesInactivos = signal<number>(0);
   pacientes = signal<PacienteDTO[]>([]);
+
+  pacienteService: PacienteService = inject(PacienteService);
+
 
   ngOnInit(): void {
     this.cargarPacientes();
@@ -48,10 +54,7 @@ export class PacientesAdministrador implements OnInit {
   }
 
   deleteUser(numeroDocumento: number) {
-    this.pacienteService.eliminarPaciente(numeroDocumento).subscribe({
-      next: () => {
-        this.cargarPacientes();
-      }
-    });
+    this.numeroDocumento.set(numeroDocumento);
+    this.isOpenConfirm.set(true);
   }
 }
