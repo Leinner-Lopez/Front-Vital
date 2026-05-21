@@ -13,7 +13,7 @@ export class SidebarComponent {
   modalEstado = model(false);
   authService = inject(AuthService);
 
-  menuItems = computed<MenuItem[]>(() => {
+  menuItems = computed<MenuItem[]>(() => { 
     const role = this.authService.userRole();
 
     if (role === 'ROLE_ADMINISTRADOR') {

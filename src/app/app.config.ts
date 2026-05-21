@@ -15,8 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withViewTransitions()), provideClientHydration(withEventReplay()),
+    provideRouter(routes, withViewTransitions()),
+    provideClientHydration(withEventReplay()),
     { provide: LOCALE_ID, useValue: 'es-ES' },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-  ]
+  ],
 };
